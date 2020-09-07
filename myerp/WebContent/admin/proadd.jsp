@@ -45,6 +45,13 @@
  			$(function(){
  				$.post("./../ajax?" + Math.random(), { rnum: "5" }, function (res) {
  	                $("#typeidbox").html(res.msg);
+ 	                /* ajax封装不同预览器的xmlhttprequest,
+ 	                ("./../ajax?" + Math.random(), { rnum: "5" }建立连接，{ rnum: "5" }传递data,success成功返回，回调函数。
+ 	                		$.post jq封装的方法
+ 	                		*/
+ 	                		/* 用意，所有ajax放入一个地方，相当于分布式获取后端ajax中的特定方法 */
+ 	                		/*./../路径缺什么，补什么。  */
+ 	                		/* Math.random()随机数避免缓存，直接请求会从缓存读取，为了最新数据，给个随机数，从不同的地方（如同？id=123）读取，其实还是指向同一个地方 */
  	            });
  				
  			});

@@ -41,21 +41,23 @@ String pagestr = (String)request.getAttribute("pagestr");
     <script type="text/javascript">
     $("#cbSelectAll").click(function () {
         $("input.cb").prop("checked", $(this).prop("checked"));
-    });
+    });//全选，影响所有选择项，prop设置或返回被选元素的属性和值，检索属性，设置属性prop（属性，value）
     $("#addSelect").click(function () {
         if (!($("input.cb:checked").length > 0)) {
             alert("请选择一条需要操作的记录");
             return false;
-        }
+        }/* 未选择则提示input.cb:checked，名叫cd的input有被选择的checked的长度 */
 
         var s = "0";
         $("input.cb:checked").each(function (index, item) {
             s += "," + $(item).val();
+           /* 用0数据0 */
         });
         s+= ",0";
         $.post("./ajax?" + Math.random(), { rnum: "8", idstr: s}, function (res) {
-            location.reload();
+            location.reload();/* 再加载 */
             window.parent.frames["right"].document.location.href="./orderright";
+            /* 刷新orderright */
             //window.parent.frames["right"].document.location.reload();
         });
     });

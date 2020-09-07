@@ -54,6 +54,7 @@ public class ajax extends HttpServlet {
 		    case "9":getSaleSumPricesByMonth(request,response);break; 
 		    default : break;
 		}
+       //接受ajax的data，选择式用方法返回数据		
 		
 		/**
 		 * response.setCharacterEncoding("utf-8");
@@ -108,12 +109,13 @@ public class ajax extends HttpServlet {
 	
 	protected void addtocarbatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idstr=request.getParameter("idstr");
-		String[] idarray = idstr.split(",");
+		String[] idarray = idstr.split(",");//放入数组，隔开
 		for(String s:idarray)
         {
         	if(!s.equals("0"))
         	{
         		addtocarsinge(request,response,s);
+//        		清除0，获取数据
         	}
         }		
 		response.setCharacterEncoding("utf-8");
