@@ -110,7 +110,7 @@ public class ajax extends HttpServlet {
 	protected void addtocarbatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idstr=request.getParameter("idstr");
 		String[] idarray = idstr.split(",");//放入数组，隔开
-		for(String s:idarray)
+	    for(String s:idarray)//循环插入数据
         {
         	if(!s.equals("0"))
         	{

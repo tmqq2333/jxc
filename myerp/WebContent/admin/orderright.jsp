@@ -239,10 +239,21 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 			//点击计算.pronumber span.js
 			$("#btnorder").click(function(){
 				//点击加号的时候，把当前加号按钮所在的行的商品数量取出来，加上1  然后再放回去。
-				var oldvalue=$(this).prev().val();
+				var newvalue=[];
+				var newprice=[];
+				
+				
+				$(".pronumber").each(function(index,item){
+					//把每一行的单价和数量取出来进行运算，并且把运算的结果交给小计
+					var num= parseFloat($(item).find("input").val());//取出当前行商品的数量，并且将数量转为数字
+					var price=parseFloat($(item).parent().prev().find("input").val());//取出商品的单价
+					newvalue.push(num);
+					newprice.push(price);
+				});
+			/* 	var oldvalue=$(this).prev().val();
 				var oldprice=$(this).prev().prev().val();//上一个兄弟节点的上一个的值
 				var newvalue=parseFloat(oldvalue);
-				var newprice=parseFloat(oldprice);//浮点数.attr("data-proid");
+				var newprice=parseFloat(oldprice);//浮点数.attr("data-proid"); */
 				var that=this;
 				
 				
@@ -262,20 +273,22 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 						
 						
 					});
+					
+				var paras={proid:proid,newprice:newprice,newvalue:newvalue}; 
+					
+					
 				
 				/*循环获取id  */
 				//数据id，商品id
 				console.log(proid);
+				console.log(paras)
 				$.ajax({
 				    url:'uiupdatecarcount', //要请求的url地址
 				    type:'POST', //请求方法 GET or POST
 				    async:true, //是否使用异步请求的方式
 				    timeout:5000, //请求超时的时间，以毫秒计
-				    data:{
-				        id :proid,
-				        countvalue:newvalue,
-				        pricevalue:newprice
-				    },
+				    data:JSON.stringify(paras),
+				    contentType : "application/json",
 				    dataType:'json', //预期的服务器返回参数类型
 				    beforeSend:function(){
 				        
@@ -284,11 +297,11 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				        console.log(data);
 				    }, //请求成功时回调方法，data为服务器返回的数据
 				    error:function(){
-				       
+				    	console.log("数据未传输")
 				    }, //请求发生错误时调用方法
 				    complete:function(){
-				    	$(that).prev().val(newvalue);
-				    	$(that).prev().prev().val(newprice);
+				  /*   	$(that).prev().val(newvalue);
+				    	$(that).prev().prev().val(newprice); */
 						jisuan();
 				    } //回调方法 无论success或者error都会执行
 				});
@@ -342,11 +355,12 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 					//把每一行的单价和数量取出来进行运算，并且把运算的结果交给小计
 					var num= parseFloat($(item).find("input").val());//取出当前行商品的数量，并且将数量转为数字
 					var price=parseFloat($(item).parent().prev().find("input").val());//取出商品的单价
-					var xiaoji=price*num;
-					$(item).parent().next().find("span").text(parseFloat(xiaoji));
+					var xiaoji=parseFloat(price*num);
+					
+					$(item).parent().next().find("span").text(xiaoji.toFixed(2));
 					sum=sum+xiaoji;
 				});
-				$("#sum").text(sum);
+				$("#sum").text(sum.toFixed(2));
 			}
 			
 			jisuan();
