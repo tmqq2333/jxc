@@ -57,6 +57,7 @@ public class uiaddorder extends HttpServlet {
 	    List<Map<String,Object>> carprolist=null;
 	    try {
 	    	carprolist=db.executeQuery(strSqlcarpros,params);
+//	 executeQuery插入   	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -64,7 +65,7 @@ public class uiaddorder extends HttpServlet {
 	    {
 	    	return;
 	    }
-	    	    
+//	    	订单没有加入商品，return空    
 	    Date t=new Date();
 	    SimpleDateFormat df1 = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	    SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -72,9 +73,10 @@ public class uiaddorder extends HttpServlet {
 	    String createtime=df2.format(t);
 
 	    int sum=0;
+//	    循环购物车查询信息，商品加入订单明细
 	    for (Map<String, Object> m : carprolist) {
 	    	sum=sum+Integer.parseInt(m.get("price").toString())*Integer.parseInt(m.get("procount").toString());//鍟嗗搧鍗曚环*鍟嗗搧涓暟
-	    	
+//	    	累加商品价格
 	    	String strSqlitems="insert into tborderitems (orderid,proid,proname,price,procount,imgurl) values (?,?,?,?,?,?)";
 	    	List<Object> paramsitems = new ArrayList<Object>();
 	    	paramsitems.add(orderid);
@@ -87,7 +89,7 @@ public class uiaddorder extends HttpServlet {
 	    }
 	    
 	   
-	  
+//	  订单抬头
 	    String StrSql1="insert into tborderhead (orderid,sname,stel,saddress,sumprice,memberid,ctime) values (?,?,?,?,?,?,?)";
 	    List<Object> params1 = new ArrayList<Object>();
 	    params1.add(orderid);

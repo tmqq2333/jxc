@@ -38,11 +38,13 @@ public class uiupdatecarcount extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String id=request.getParameter("id");
 		String countvalue=request.getParameter("countvalue");
+		String pricevalue=request.getParameter("pricevalue");
 		String sessionid=request.getSession().getId();    
-		String strSql="update tbshoppingcar set procount=? where sessionid=? and proid=? ";
+		String strSql="update tbshoppingcar set procount=?, price=? where sessionid=? and proid=? ";
 		DBHelper db=new DBHelper();
 		List<Object> params = new ArrayList<Object>();
 		params.add(countvalue);
+		params.add(pricevalue);
 		params.add(sessionid);
 		params.add(id);
 		db.excuteSql(strSql, params);

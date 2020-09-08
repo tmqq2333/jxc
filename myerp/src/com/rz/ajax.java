@@ -160,14 +160,14 @@ public class ajax extends HttpServlet {
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 			String createtime=df.format(new Date());
 			//新增
-			String strSql2="insert into tbshoppingcar (sessionid,proname,proid,procount,ctime,imgurl,price) values(?,?,?,?,?,?,?) ";
+			String strSql2="insert into tbshoppingcar (sessionid,proname,proid,procount,ctime,imgurl) values(?,?,?,?,?,?) ";
 			params.add(sessionid);
 			params.add(obj.get("proname"));
 			params.add(id);
 			params.add(1);
 			params.add(createtime);
 			params.add(obj.get("imgurl"));
-			params.add(obj.get("price"));
+			/*params.add(obj.get("price"));*/
 			db.excuteSql(strSql2, params);
 			
 		}

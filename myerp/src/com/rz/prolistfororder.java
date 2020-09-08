@@ -30,6 +30,8 @@ public class prolistfororder extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    
+//    分页查询
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int currentpage = 1;
 		try {
@@ -54,6 +56,7 @@ public class prolistfororder extends HttpServlet {
 		pageobj.urlname = "";		
 		int startindex = pageobj.pagesize * (pageobj.currentpage - 1);
 		String strSqlpager = " select * from v_product order by id desc limit "+ startindex + "," + pageobj.pagesize + "";
+//		v_product视图
 		List<Map<String, Object>> listpage = null;
 		try {
 			listpage = Dal.executeQuery(strSqlpager, params);

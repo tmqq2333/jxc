@@ -17,26 +17,26 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 		<style type="text/css">
 			
 			.pronumber{
-				width:100px;
-				height: 40px;
+				width:60px;
+				height: 30px;
 				border: solid 1px #ccc;
 			}
 			
-			.pronumber span{
+			 .pronumber span{
 				display: block;
-				width: 40px;
-				height: 40px;
-				line-height: 40px;
-				font-size: 24px;
+				width: 6px;
+				height: 30px;
+				line-height: 0px;
+				font-size: 14px;
 				color: #757575;
 				float: left;
-				cursor: pointer;
+				cursor: pointer;/* 鼠标指针 */
 				background-color:#eee;
-			}
+			} 
 			
-			.pronumber input{
-				width:68px;
-				height:40px;
+			#procount{
+				width:60px;
+				height:30px;
 				outline: none;
 				float: left;
 				text-align: center;
@@ -61,14 +61,17 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 			#receiverinfo{
 				display:none;
 			}
+			span{
+			cursor:default
+			}
 		</style>
 	</head>
 	<body>
 		<p class="path">当前位置:/夜鹰进销存系统/进货管理/进货下单</p>
 		<table border="0" cellspacing="0" cellpadding="0" class="tb tblist" id="cartable">
-			<tr><td style="width: 150px;height: 30px;">商品图片</td><td>商品名称</td><td>单价</td><td style="width:156px;">数量</td><td style="width: 150px;">小计</td><td style="width:50px;">操作</td></tr>
+			<tr><td style="width: 150px;height: 30px;">商品图片</td><td>商品名称</td><td style="width:100px;">单价</td><td style="width:100px;">数量</td><td style="width: 100px;">小计</td><td style="width:50px;">操作</td></tr>
 			<%for (Map<String, Object> m : carlistall) { %>
-			<tr data-proid="<%=m.get("proid")%>"><td><img src="upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0; "></td><td><%=m.get("proname")%></td><td><span><input type="text" id="proprice" style="width:60px;height:30px;margin:auto,0; " value="<%=m.get("price")%>"/></span>元</td><td><div class="pronumber"><!-- <span class="left">-</span> --><input type="text" id="procount" style="width:60px;height:30px;padding:2px 0;margin-right: 20px" value="<%=m.get("procount")%>"/><span class="js"  style="font-size: 20%;">计算</span><!-- <span class="right">+</span> --> </div>  </td><td><span></span>元</td><td><span class="del">删除</span></td></tr>
+			<tr class="proidd" data-proid="<%=m.get("proid")%>"><td><img src="upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0; "></td><td><%=m.get("proname")%></td><td ><span><input type="text" id="proprice" style="width:46px;height:30px;margin:auto,0; " value="<%=m.get("price")%>"/>元</span></td><td><div class="pronumber"><input type="text" id="procount"  value="<%=m.get("procount")%>"/>吨 </div>  </td><td><span></span>元</td><td><span class="del">删除</span></td></tr>
 			<%}%>
 		</table>
 		
@@ -233,15 +236,36 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				jisuan();
 			}); */
 			
-			//点击计算
-			$(".pronumber span.js").click(function(){
+			//点击计算.pronumber span.js
+			$("#btnorder").click(function(){
 				//点击加号的时候，把当前加号按钮所在的行的商品数量取出来，加上1  然后再放回去。
 				var oldvalue=$(this).prev().val();
+				var oldprice=$(this).prev().prev().val();//上一个兄弟节点的上一个的值
 				var newvalue=parseFloat(oldvalue);
-				
-				
+				var newprice=parseFloat(oldprice);//浮点数.attr("data-proid");
 				var that=this;
-				var proid=$(that).parent().parent().parent().attr("data-proid");
+				
+				
+				/*  $("#proidd").each(function(index,item){
+						//把每一行的单价和数量取出来进行运算，并且把运算的结果交给小计
+					
+					 var proid=$(item).attr("data-proid");
+						return proid
+					}); */
+					var idlist=$(that).parent().prev().children().children().nextAll().length;
+					console.log(idlist);
+					var proid=[];
+					$(".proidd").each(function(index,item){//需要遍历的$(".proidd")一个个输出
+						
+						var ppt= $(item).attr("data-proid");//循环遍历子节点
+						proid.push(ppt);
+						
+						
+					});
+				
+				/*循环获取id  */
+				//数据id，商品id
+				console.log(proid);
 				$.ajax({
 				    url:'uiupdatecarcount', //要请求的url地址
 				    type:'POST', //请求方法 GET or POST
@@ -249,7 +273,8 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				    timeout:5000, //请求超时的时间，以毫秒计
 				    data:{
 				        id :proid,
-				        countvalue:newvalue
+				        countvalue:newvalue,
+				        pricevalue:newprice
 				    },
 				    dataType:'json', //预期的服务器返回参数类型
 				    beforeSend:function(){
@@ -263,16 +288,18 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				    }, //请求发生错误时调用方法
 				    complete:function(){
 				    	$(that).prev().val(newvalue);
+				    	$(that).prev().prev().val(newprice);
 						jisuan();
 				    } //回调方法 无论success或者error都会执行
 				});
 				
 				
-				$(this).next().val(newvalue);
+				//$(this).next().val(newvalue);//改变的值放入数量里，之前 newvalue=parseint(oldvalue)+1;值有变化
+				/*val(newvalue)放入值  */
 				jisuan();
 			});
 			
-			
+			//删除
 			$("span.del").click(function(){
 				var that=this;
 				var proid=$(that).parent().parent().attr("data-proid");
@@ -310,12 +337,13 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				//1、运算每一行的小计  = 单价*数量
 				//2、对所有行的小计进行合计。
 				var sum=0;
+				/* each(function(位置,元素) */
 				$(".pronumber").each(function(index,item){
 					//把每一行的单价和数量取出来进行运算，并且把运算的结果交给小计
 					var num= parseFloat($(item).find("input").val());//取出当前行商品的数量，并且将数量转为数字
-					var price=parseFloat($(item).parent().prev().find("span").text());//取出商品的单价
+					var price=parseFloat($(item).parent().prev().find("input").val());//取出商品的单价
 					var xiaoji=price*num;
-					$(item).parent().next().find("span").text(xiaoji);
+					$(item).parent().next().find("span").text(parseFloat(xiaoji));
 					sum=sum+xiaoji;
 				});
 				$("#sum").text(sum);

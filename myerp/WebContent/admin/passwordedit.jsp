@@ -12,9 +12,9 @@
 <p class="path">当前位置：夜鹰进销存管理系统/系统配置/密码修改</p>
 <form action="../editpassword" method="post">
 <table border="0" cellspacing="0" cellpadding="0" class="tb">
-	<tr><td class="lable">旧密码</td><td><input type="text" name="oldpassoword" id="oldpassoword"/></td></tr>
-	<tr><td class="lable">新密码</td><td><input type="text" name="newpassword" id="newpassword"/></td></tr>
-	<tr><td class="lable">确认新密码</td><td><input type="text" name="newpassword1" id="newpasswordp"/></td></tr>
+	<tr><td class="lable">旧密码</td><td><input type="password" name="oldpassoword" id="oldpassoword"/></td></tr>
+	<tr><td class="lable">新密码</td><td><input type="password" name="newpassword" id="newpassword"/></td></tr>
+	<tr><td class="lable">确认新密码</td><td><input type="password" name="newpassword1" id="newpasswordp"/></td></tr>
 	<tr><td class="lable">&nbsp;</td><td><input type="submit" name="btnsave" value="保存" id="btnsave"/></td></tr>
 </table>
 </form>
