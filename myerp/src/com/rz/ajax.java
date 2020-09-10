@@ -52,6 +52,7 @@ public class ajax extends HttpServlet {
 		    case "7":getproviewbynum(request,response);break; 
 		    case "8":addtocarbatch(request,response);break; 
 		    case "9":getSaleSumPricesByMonth(request,response);break; 
+		    case "12":gettbbaobiao(request,response);break;
 		    default : break;
 		}
        //接受ajax的data，选择式用方法返回数据		
@@ -442,6 +443,43 @@ public class ajax extends HttpServlet {
 		response.getWriter().write("{\"msg\":\""+html+"\"}");		
 	}
 	
-	
+	protected void gettbbaobiao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String StrSql="select proname,sum(price) as sumprice,sum(procount) as sumcount from v_proitem where DATE_FORMAT(ctime,'%Y') =? GROUP BY proname";
+		String cyear=request.getParameter("cyear");
+		List<Object> params= new ArrayList<Object>();
+		params.add(cyear);
+		DBHelper db=new DBHelper();
+		List<Map<String, Object>> reslist = null;
+		String html="";
+		//{"data1":["MateBook 13","戴尔DELL灵越5000"],"data2":[{"MateBook 13":100},{"戴尔DELL灵越5000":200}]}
+		try {
+			reslist=db.executeQuery(StrSql, params);
+			String html_1="[";
+			String html_2="[";
+			int i=1;
+			for (Map<String, Object> m : reslist) {
+				if(i==reslist.size())
+				{
+					html_1+="\""+m.get("proname")+"\"";
+					html_2+="{\"name\":\""+m.get("proname")+"\",\"value\":"+m.get("sumprice")+"}";
+				}
+				else
+				{
+					html_1+="\""+m.get("proname")+"\",";
+					html_2+="{\"name\":\""+m.get("proname")+"\",\"value\":"+m.get("sumprice")+"},";
+				}
+				i++;
+			}
+			html_1+="]";
+			html_2+="]";
+			html="{\"data1\":"+html_1+",\"data2\":"+html_2+"}";
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/json;charset=utf-8");
+		response.getWriter().write(html);
+		
+	}
 
 }

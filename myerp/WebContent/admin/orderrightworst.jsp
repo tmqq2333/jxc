@@ -34,7 +34,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				background-color:#eee;
 			} 
 			
-			 .pronumber input{
+			#procount{
 				width:60px;
 				height:30px;
 				outline: none;
@@ -71,17 +71,17 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 		<table border="0" cellspacing="0" cellpadding="0" class="tb tblist" id="cartable">
 			<tr><td style="width: 150px;height: 30px;">商品图片</td><td>商品名称</td><td style="width:100px;">单价</td><td style="width:100px;">数量</td><td style="width: 100px;">小计</td><td style="width:50px;">操作</td></tr>
 			<%for (Map<String, Object> m : carlistall) { %>
-			<tr class="proidd" data-proid="<%=m.get("proid")%>"><td><img src="upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0; "></td><td><%=m.get("proname")%></td><td ><span><input type="text" class="proprice" style="width:46px;height:30px;margin:auto,0; " value="<%=m.get("price")%>"/>元</span></td><td><div class="pronumber"><input type="text" class="procount"  value="<%=m.get("procount")%>"/>吨 </div>  </td><td><span></span>元</td><td><span class="del">删除</span></td></tr>
+			<tr class="proidd" data-proid="<%=m.get("proid")%>"><td><img src="upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0; "></td><td><%=m.get("proname")%></td><td ><span><input type="text" id="proprice" style="width:46px;height:30px;margin:auto,0; " value="<%=m.get("price")%>"/>元</span></td><td><div class="pronumber"><input type="text" id="procount"  value="<%=m.get("procount")%>"/>吨 </div>  </td><td><span></span>元</td><td><span class="del">删除</span></td></tr>
 			<%}%>
 		</table>
 		
 		<p id="carbuy" class="pager"> <span style="padding-left: 20px;color: #ff6700;font-size:18px;">合计 <b id="sum"></b>元 </span> <input type="button" id="btnorder" class="btn" value="去结算"/></p>
 		<div id="receiverinfo" class="innerclass">
 			<%if(obj!=null){%>
-				 <p>姓名:<input class="forminput" type="text" name="tbname" id="tbname" value="<%=obj.get("truename")%>"/></p>
-				<%--<p>电话:<input class="forminput" type="text" name="tbtel" id="tbTel" value="<%=obj.get("tel")%>"/></p>
-				<p>地址:<input class="forminput" type="text" name="tbaddress" id="tbaddress" value="<%=obj.get("memo")%>" /></p>--%>
-				<p> 
+				<%-- <p>姓名:<input class="forminput" type="text" name="tbname" id="tbname" value="<%=obj.get("truename")%>"/></p>
+				<p>电话:<input class="forminput" type="text" name="tbtel" id="tbTel" value="<%=obj.get("tel")%>"/></p>
+				<p>地址:<input class="forminput" type="text" name="tbaddress" id="tbaddress" value="<%=obj.get("memo")%>" /></p>
+				<p> --%>
 					<input type="button" id="btngotoorder" class="btn" value="确认下单"/>
 				</p>
 			<%}else{%>
@@ -101,16 +101,16 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 			});
 			
 			//给立即下单的按钮绑定一个点击事件
-		$("#btngotoorder").click(function(e){
+			$("#btngotoorder").click(function(e){
 				//要去判断这三个文本框里面是否输入了内容  判断的标准：去获取每个文本框里面的值，看这个值的长度是否大于0，如果大于0，就表示输入了内容
-				 if(!$("#tbname").val().length>0)//判断长度是否大于0，取反之后就数不大于0，即：没有输入内容。
+				/* if(!$("#tbname").val().length>0)//判断长度是否大于0，取反之后就数不大于0，即：没有输入内容。
 				{
 					alert("请输入收货人姓名!");
 					$("#tbname").focus();//让一个表单元素获得焦点 
 					return false;
 				}
 				
-				/* if(!$("#tbTel").val().length>0)//判断长度是否大于0，取反之后就数不大于0，即：没有输入内容。
+				if(!$("#tbTel").val().length>0)//判断长度是否大于0，取反之后就数不大于0，即：没有输入内容。
 				{
 					alert("请输入收货人联系电话!");
 					$("#tbTel").focus();//让一个表单元素获得焦点 
@@ -122,7 +122,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 					alert("请输入收货人详细地址!");
 					$("#tbaddress").focus();//让一个表单元素获得焦点 
 					return false;
-				}  */
+				} */
 				
 				//检查购物车里面是否又商品
 				var len=$("#cartable").find("tr").length;
@@ -140,7 +140,8 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				    timeout:5000, //请求超时的时间，以毫秒计
 				    data:{
 				    	tbname:$("#tbname").val(),
-				     
+				        tbtel:$("#tbTel").val(),
+				        tbaddress:$("#tbaddress").val()
 				    },
 				    dataType:'json', //预期的服务器返回参数类型
 				    beforeSend:function(){
@@ -150,7 +151,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				       location.href="./admin/result.jsp";
 				    }, //请求成功时回调方法，data为服务器返回的数据
 				    error:function(){
-				       console.log("未能回调")
+				       
 				    }, //请求发生错误时调用方法
 				    complete:function(){
 						jisuan();
@@ -236,15 +237,25 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 			}); */
 			
 			//点击计算.pronumber span.js
-			$(".proidd input").blur(function(){
+			$("#btnorder").click(function(){
 				//点击加号的时候，把当前加号按钮所在的行的商品数量取出来，加上1  然后再放回去。
-			
-		     	var oldvalue=$(this).parents("tr").find("input.procount").val();
-				var oldprice=$(this).parents("tr").find("input.proprice").val();;//上一个兄弟节点的上一个的值
+				var newvalue=[];
+				var newprice=[];
+				
+				
+				$(".pronumber").each(function(index,item){
+					//把每一行的单价和数量取出来进行运算，并且把运算的结果交给小计
+					var num= parseFloat($(item).find("input").val());//取出当前行商品的数量，并且将数量转为数字
+					var price=parseFloat($(item).parent().prev().find("input").val());//取出商品的单价
+					newvalue.push(num);
+					newprice.push(price);
+				});
+			/* 	var oldvalue=$(this).prev().val();
+				var oldprice=$(this).prev().prev().val();//上一个兄弟节点的上一个的值
 				var newvalue=parseFloat(oldvalue);
-				var newprice=parseFloat(oldprice);//浮点数.attr("data-proid"); 
+				var newprice=parseFloat(oldprice);//浮点数.attr("data-proid"); */
 				var that=this;
-				var proid=$(that).parents("tr").attr("data-proid");
+				
 				
 				/*  $("#proidd").each(function(index,item){
 						//把每一行的单价和数量取出来进行运算，并且把运算的结果交给小计
@@ -252,23 +263,32 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 					 var proid=$(item).attr("data-proid");
 						return proid
 					}); */
+					var idlist=$(that).parent().prev().children().children().nextAll().length;
+					console.log(idlist);
+					var proid=[];
+					$(".proidd").each(function(index,item){//需要遍历的$(".proidd")一个个输出
+						
+						var ppt= $(item).attr("data-proid");//循环遍历子节点
+						proid.push(ppt);
+						
+						
+					});
+					
+				var paras={proid:proid,newprice:newprice,newvalue:newvalue}; 
+					
 					
 				
 				/*循环获取id  */
 				//数据id，商品id
-				
+				console.log(proid);
+				console.log(paras)
 				$.ajax({
 				    url:'uiupdatecarcount', //要请求的url地址
 				    type:'POST', //请求方法 GET or POST
 				    async:true, //是否使用异步请求的方式
 				    timeout:5000, //请求超时的时间，以毫秒计
-				    data:{
-				    	id :proid,
-				    	newvalue:newvalue,
-				        newprice:newprice
-				    	
-				    },
-				 
+				    data:JSON.stringify(paras),
+				    contentType : "application/json",
 				    dataType:'json', //预期的服务器返回参数类型
 				    beforeSend:function(){
 				        

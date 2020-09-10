@@ -20,9 +20,9 @@ List<Map<String, Object>> orderitems = (List<Map<String, Object>>)request.getAtt
 <tr><td style="width:120px;">订单号</td><td style="text-align:left;"><%=orderhead.get("orderid")%></td></tr>
 
 <tr><td>总金额</td><td style="text-align:left;"><%=orderhead.get("sumprice")%></td></tr>
-<tr><td>收货人</td><td style="text-align:left;"><%=orderhead.get("sname")%></td></tr>
+<%-- <tr><td>收货人</td><td style="text-align:left;"><%=orderhead.get("sname")%></td></tr>
 <tr><td>联系电话</td><td style="text-align:left;"><%=orderhead.get("stel")%></td></tr>
-<tr><td>送货地址</td><td style="text-align:left;"><%=orderhead.get("saddress")%></td></tr>
+<tr><td>送货地址</td><td style="text-align:left;"><%=orderhead.get("saddress")%></td></tr> --%>
 <tr><td>下单时间</td><td style="text-align:left;"><%=orderhead.get("ctime")%></td></tr>
 </table>
 
@@ -35,7 +35,8 @@ List<Map<String, Object>> orderitems = (List<Map<String, Object>>)request.getAtt
        		<td><%=m.get("proname")%></td>
        		<td><%=m.get("price")%>.00</td>
        		<td><%=m.get("procount")%></td>
-       		<td><%=m.get("price").toString()%>*<%=m.get("procount").toString()%>=<%=Integer.parseInt(m.get("price").toString())*Integer.parseInt(m.get("procount").toString()) %> </td>
+       		<td><%=m.get("price").toString()%>*<%=m.get("procount").toString()%>=<%=Float.parseFloat(m.get("price").toString())*Float.parseFloat(m.get("procount").toString()) %> </td>
+       <!-- Float.parseFloat字符型转为float型 -->
        </tr>
     	<% } %>
     </table>

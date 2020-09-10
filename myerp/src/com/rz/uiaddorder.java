@@ -42,13 +42,12 @@ public class uiaddorder extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("currentuser");	
 		String memberid=obj.get("id").toString();
 		String tbname=request.getParameter("tbname");
-		String tbtel=request.getParameter("tbtel");
-		String tbaddress=request.getParameter("tbaddress");
-	    String sessionid=request.getSession().getId();
+		/*String tbtel=request.getParameter("tbtel");
+		String tbaddress=request.getParameter("tbaddress");*/
+        String sessionid=request.getSession().getId();
 	    
 	    String strSqlcarpros="select * from tbshoppingcar where sessionid=? ";
 	    DBHelper db=new DBHelper();
@@ -72,10 +71,10 @@ public class uiaddorder extends HttpServlet {
 	    String orderid=df1.format(t);
 	    String createtime=df2.format(t);
 
-	    int sum=0;
+	    float sum=0;
 //	    循环购物车查询信息，商品加入订单明细
 	    for (Map<String, Object> m : carprolist) {
-	    	sum=sum+Integer.parseInt(m.get("price").toString())*Integer.parseInt(m.get("procount").toString());//鍟嗗搧鍗曚环*鍟嗗搧涓暟
+	    	sum=sum+Float.parseFloat(m.get("price").toString())*Float.parseFloat(m.get("procount").toString());//鍟嗗搧鍗曚环*鍟嗗搧涓暟
 //	    	累加商品价格
 	    	String strSqlitems="insert into tborderitems (orderid,proid,proname,price,procount,imgurl) values (?,?,?,?,?,?)";
 	    	List<Object> paramsitems = new ArrayList<Object>();
@@ -90,12 +89,12 @@ public class uiaddorder extends HttpServlet {
 	    
 	   
 //	  订单抬头
-	    String StrSql1="insert into tborderhead (orderid,sname,stel,saddress,sumprice,memberid,ctime) values (?,?,?,?,?,?,?)";
+	    String StrSql1="insert into tborderhead (orderid,sname,sumprice,memberid,ctime) values (?,?,?,?,?)";
 	    List<Object> params1 = new ArrayList<Object>();
 	    params1.add(orderid);
 	    params1.add(tbname);
-	    params1.add(tbtel);
-	    params1.add(tbaddress);
+	   /*params1.add(tbtel);
+	    params1.add(tbaddress);*/
 	    params1.add(sum);
 	    params1.add(memberid);
 	    params1.add(createtime);
