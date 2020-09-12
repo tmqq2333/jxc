@@ -52,11 +52,12 @@ public class uilogin extends HttpServlet {
 		if(memlist.size()>0)
 		{
 			request.getSession().setAttribute("currentmember", memlist.get(0));
+			//å­˜ç”¨æˆ·ä¿¡æ¯ï¼Œsessionä¿å­˜ï¼Œå…¨å±€é€šç”¨
 			response.sendRedirect("index");
 		}
 		else
 		{
-			request.setAttribute("msg", "ÓÃ»§Ãû»òÕßÃÜÂë´íÎó");
+			request.setAttribute("msg", "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 			request.getRequestDispatcher("/uilogin.jsp").forward(request, response);
 		}
 	}

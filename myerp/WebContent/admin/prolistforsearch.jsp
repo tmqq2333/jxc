@@ -29,7 +29,7 @@ String pagestr = (String)request.getAttribute("pagestr");
        		<td><%=m.get("pronum")%></td>
        		<td><img src="./twocode/<%=m.get("procodeurl")%>" style="width:38px;height:38px;padding:5px 0px;"></td>
        		<td><%=m.get("proname")%></td>       		
-       		<td><%=m.get("price")%>.00</td>
+       		<td><%=m.get("price")%></td>
        		<td><%=m.get("procount")%></td>
        </tr>
     	<% } %>
@@ -42,11 +42,11 @@ String pagestr = (String)request.getAttribute("pagestr");
     <script src="./js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
     
-    var key = localStorage.getItem("keyprosearch");
+    var key = localStorage.getItem("keyprosearch");//后台数据接收
     $("#tbkey").val(key);
     $("#btnsearch").click(function () {
         var key = $("#tbkey").val();
-        localStorage.setItem("keyprosearch", key);
+        localStorage.setItem("keyprosearch", key);//key放进localStorage存储器下的keyprosearch，
         location.href = "prolistforsearch?key=" + key+"&classid=0";	;
     });
   

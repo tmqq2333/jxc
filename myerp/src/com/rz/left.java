@@ -33,15 +33,16 @@ public class left extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Object currentmember=request.getSession().getAttribute("currentuser");
+//		用户信息
         if(currentmember == null||currentmember == ""||currentmember.equals("")){
         	try{	
         		HttpServletResponse res = (HttpServletResponse) response;
-			    response.reset();   
+			    response.reset();  //重置
 			    request.setCharacterEncoding("UTF-8");
 			    response.setContentType("text/html; charset=UTF-8");
-    		    ServletOutputStream servletOutputStream  = res.getOutputStream();
+    		    ServletOutputStream servletOutputStream  = res.getOutputStream();//获取输出流
 			    servletOutputStream.println("<script language=javascript>window.parent.location.href=\"./admin/login.jsp\"</script>");
-//			如果没有获得用户数据，则返回登陆。js返回父元素
+//			如果没有获得用户数据，则返回登陆。js返回父元素main全局跳转，没有跳回父级，则局部显示
 			  }catch (Exception e) {
 			}
         	return;

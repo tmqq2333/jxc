@@ -33,7 +33,7 @@ List<Map<String, Object>> orderitems = (List<Map<String, Object>>)request.getAtt
        <%for (Map<String, Object> m : orderitems) { %>
         <tr>
        		<td><%=m.get("proname")%></td>
-       		<td><%=m.get("price")%>.00</td>
+       		<td><%=m.get("price")%></td>
        		<td><%=m.get("procount")%></td>
        		<td><%=m.get("price").toString()%>*<%=m.get("procount").toString()%>=<%=Float.parseFloat(m.get("price").toString())*Float.parseFloat(m.get("procount").toString()) %> </td>
        <!-- Float.parseFloat字符型转为float型 -->

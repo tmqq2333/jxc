@@ -22,6 +22,7 @@
 			<table border="0" cellspacing="0" cellpadding="0" class="tb">
 				<tr>
 					<td class="lable">类别</td><td id="typeidbox" data-typeid="<%=objbyid.get("typeid").toString()%>">
+					<!--objbyid之前选中的类别  -->
 					
 					    <select name="typeid">
 					    	<option <%=(objbyid.get("typeid").toString().equals("1"))?"selected=\"selected\"":""%> value="1">小米</option>

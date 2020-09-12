@@ -1,6 +1,7 @@
 package com.rz;
 
 public class tbtype {
+//	用tbtype定义的对象，拥有了类名，父类，父id,类别排名
 	private int id;
 	private String typename ;
 	private String parentname ;

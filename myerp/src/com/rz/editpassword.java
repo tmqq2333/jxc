@@ -66,6 +66,7 @@ public class editpassword extends HttpServlet {
 			params2.add(newpassword);
 			params2.add(currentid);
 			Dal.excuteSql(strsql2, params2);
+			tblog.addmsg(2, "正常修改密码,用户名为:", request);
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=utf-8");
 			response.getWriter().write("<font color='green'>密码修改成功 ！</font>");
@@ -76,6 +77,8 @@ public class editpassword extends HttpServlet {
 			//密码输入错误的 情况
 			response.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=utf-8");
+			String msg="修改密码失败";
+			tblog.addmsg(2, msg, request);
 			response.getWriter().write("<font color='green'>你输入的旧密码不正确 ！</font>");
 			response.setHeader("Refresh", "3;URL="+request.getContextPath()+"/admin/passwordedit.jsp");	
 			

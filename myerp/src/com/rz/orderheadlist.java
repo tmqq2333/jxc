@@ -51,7 +51,40 @@ public class orderheadlist extends HttpServlet {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		String strSq2=" select proid from tbcliaozong order by id desc ";
+		List<Map<String, Object>> listall2 = null;
+		List<Object> params2 = new ArrayList<Object>();
+		try {
+			listall2=Dal.executeQuery(strSq2, params2);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//取出id对比，如果有，执行修改数量，金额。无则添加
+		//数据库取出同一产品的数量，添加
+		//
 		
+		/*listall2.proid
+		if()*/
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		//分页
 		Pager pageobj=new Pager();
 		pageobj.allrecordcount=listall.size();
 		pageobj.pagesize=10;

@@ -382,7 +382,7 @@ public class ajax extends HttpServlet {
 				item2.setFullPath(temp.get("fullpath").toString());
 				item2.setlevelnum((int)temp.get("levelnum"));
 				listall.add(item2);
-				getData(temp.get("id").toString());
+				getData(temp.get("id").toString());//递归查询是否还有子级
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -393,8 +393,8 @@ public class ajax extends HttpServlet {
 	 获取商品类别html字符串for添加页面
 	*/
 	protected void getprotypehtml(HttpServletRequest request,HttpServletResponse response) throws IOException{
-		listall.clear();
-		getData("0");
+		listall.clear();//每次请求都先清空listall
+		getData("0");//递归把类别按顺序查询出来
 		String html="<select name='typeid'>";
 		for(tbtype item:listall)
 		{

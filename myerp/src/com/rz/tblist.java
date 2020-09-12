@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class prolistfororder
+ * Servlet implementation class tblist
  */
-@WebServlet("/prolistfororder")
-public class prolistfororder extends HttpServlet {
+@WebServlet("/tblist")
+public class tblist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public prolistfororder() {
+    public tblist() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,33 +30,51 @@ public class prolistfororder extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    
-//    分页查询
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int currentpage = 1;
+		request.setCharacterEncoding("utf-8");
+		String key=request.getParameter("key");
+		if(!(key==null||key.equals("")))
+		{
+			key = new String(key.getBytes("iso-8859-1"), "utf-8");//解决中文乱码的问题
+		}
 		try {
 			String p = request.getParameter("p");
 			currentpage = Integer.valueOf(p);
 		} catch (Exception e) {
 			currentpage = 1;
 		}
-		DBHelper Dal = new DBHelper();		
-		String strSql = " select id from v_product order by id desc ";
+		DBHelper Dal = new DBHelper();
+		String strSql = " select id from tblog order by id desc ";
+		if(!(key==null||key.equals("")))
+		{
+			strSql = " select id from tblog where username like '%"+key+"%' or msg like '%"+key+"%' order by id desc ";
+		}
+		
 		List<Map<String, Object>> listall = null;
 		List<Object> params = new ArrayList<Object>();
 		try {
 			listall = Dal.executeQuery(strSql, params);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}
+
+		
 		Pager pageobj = new Pager();
 		pageobj.allrecordcount = listall.size();
-		pageobj.pagesize = 20;
+		pageobj.pagesize = 10;
 		pageobj.currentpage = currentpage;
-		pageobj.urlname = "";		
+		pageobj.urlname = "";
+		pageobj.w="key="+key+"&classid=0";
+
+		
 		int startindex = pageobj.pagesize * (pageobj.currentpage - 1);
-		String strSqlpager = " select * from v_product order by id desc limit "+ startindex + "," + pageobj.pagesize + "";
-//		v_product视图
+		String strSqlpager = " select * from tblog order by id desc limit "+startindex + "," + pageobj.pagesize + "";
+		if(!(key==null||key.equals("")))
+		{
+			strSqlpager = " select * from tblog where username like '%"+key+"%' or msg like '%"+key+"%' order by id desc limit "+startindex + "," + pageobj.pagesize + "";
+		}
+		
 		List<Map<String, Object>> listpage = null;
 		try {
 			listpage = Dal.executeQuery(strSqlpager, params);
@@ -66,15 +84,16 @@ public class prolistfororder extends HttpServlet {
 		String pagestr = pageobj.GetPageInfo();
 		request.setAttribute("pagestr", pagestr);
 		request.setAttribute("list", listpage);
-		request.getRequestDispatcher("/admin/prolistfororder.jsp").forward(request,response);
-//		request.getRequestDispatcher("/admin/jgongleft.jsp").forward(request,response);
+		request.getRequestDispatcher("/admin/tblist.jsp").forward(request,
+				response);
+	
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
 	}
 
 }

@@ -39,6 +39,7 @@ public class prolistforsearch extends HttpServlet {
 				key = new String(key.getBytes("iso-8859-1"), "utf-8");//解决中文乱码的问题
 			}
 			try {
+				//分页
 				String p = request.getParameter("p");
 				currentpage = Integer.valueOf(p);
 			} catch (Exception e) {
@@ -46,9 +47,11 @@ public class prolistforsearch extends HttpServlet {
 			}
 			DBHelper Dal = new DBHelper();
 			String strSql = " select id from v_product order by id desc ";
+			//所有的id
 			if(!(key==null||key.equals("")))
 			{
 				strSql = " select id from v_product where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc ";
+			//匹配proname or pronum
 			}
 			
 			List<Map<String, Object>> listall = null;
@@ -58,10 +61,40 @@ public class prolistforsearch extends HttpServlet {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-
+            //前面就是为了获取数据长度
 			
-			Pager pageobj = new Pager();
-			pageobj.allrecordcount = listall.size();
+			
+//			for (Map<String, Object> m : listall) {
+//				String proname=m.get("proname");
+//				String proid=
+//				String imgurl=
+//				String zprice=
+//			    String zprocount=
+//						
+//			}
+//			List<Object> params6 = new ArrayList<Object>();
+//			params6.add(proname);
+//			params6.add(proid);
+//			params6.add(imgurl);	
+//			params6.add(tel);
+//			params6.add(zprocount);
+//			
+//			//2、把接受到的参数添加到数据库
+//			
+//			//定义sql语句
+//			if(strSqlin.get("proid"))
+//			{
+//			String strSqlin=" insert into tbcliaozong (proname,proid,imgurl,zprice,zprocount) values (?,?,?,?,?)";
+//			Dal.excuteSql(strSqlin, params6);
+//			}//定义参数对象
+//			else{
+//			String strSqlup="update tbcliaozong set zprice=?,zprocount=? where proid=?";
+//			Dal.excuteSql(strSqlup, params6);	
+//			}
+			
+			
+			Pager pageobj = new Pager();//类
+			pageobj.allrecordcount = listall.size();//数据长度
 			pageobj.pagesize = 10;
 			pageobj.currentpage = currentpage;
 			pageobj.urlname = "";
@@ -70,20 +103,22 @@ public class prolistforsearch extends HttpServlet {
 			
 			int startindex = pageobj.pagesize * (pageobj.currentpage - 1);
 			String strSqlpager = " select * from v_product order by id desc limit "+startindex + "," + pageobj.pagesize + "";
+			//文本怎么显示
 			if(!(key==null||key.equals("")))
 			{
 				strSqlpager = " select * from v_product where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc limit "+startindex + "," + pageobj.pagesize + "";
+			//如果input不空，查询数据
 			}
 			
 			List<Map<String, Object>> listpage = null;
 			try {
-				listpage = Dal.executeQuery(strSqlpager, params);
+				listpage = Dal.executeQuery(strSqlpager, params);//放入listpage
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 			String pagestr = pageobj.GetPageInfo();
 			request.setAttribute("pagestr", pagestr);
-			request.setAttribute("list", listpage);
+			request.setAttribute("list", listpage);//传递
 			request.getRequestDispatcher("/admin/prolistforsearch.jsp").forward(request,
 					response);
 	}
