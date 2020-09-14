@@ -53,32 +53,6 @@ public class jgongheadlist extends HttpServlet {
 		}
 		
 		
-	
-		//取出id对比，如果有，执行修改数量，金额。无则添加
-		//数据库取出同一产品的数量，添加
-		//
-		
-		/*listall2.proid
-		if()*/
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		//分页
 		Pager pageobj=new Pager();
 		pageobj.allrecordcount=listall.size();
@@ -87,7 +61,7 @@ public class jgongheadlist extends HttpServlet {
 		pageobj.urlname="";
 		
 		int startindex=pageobj.pagesize*(pageobj.currentpage-1);
-		String strSqlpager=" select * from tborderhead  order by id desc limit "+startindex+","+pageobj.pagesize+""; 
+		String strSqlpager=" select * from tbsaleorderhead  order by id desc limit "+startindex+","+pageobj.pagesize+""; 
 		List<Map<String, Object>> listpage = null;
 		try {
 			listpage=Dal.executeQuery(strSqlpager, params);

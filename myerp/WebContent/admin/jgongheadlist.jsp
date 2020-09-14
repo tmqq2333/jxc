@@ -19,16 +19,18 @@ String pagestr = (String)request.getAttribute("pagestr");
 
 <table border="0" cellspacing="0" cellpadding="0" class="tb tblist">
        <tr>
-       	  <td style="width:160px;">订单号</td><td style="width:100px;">材料</td><td style="width:100px;">电话</td><td>地址</td><td style="width:180px;">时间</td><td style="width:120px;">操作</td>   
+       	  <td style="width:160px;">订单号</td> <td style="width:100px;">姓名</td><td>产品</td><td style="width:100px;">产品数量</td><!-- <td style="width:100px;">金额</td> --><td style="width:180px;">时间</td><td style="width:120px;">操作</td>   
        </tr>
        <%for (Map<String, Object> m : list) { %>
         <tr>
        		<td><%=m.get("orderid")%></td>
        		<td><%=m.get("sname")%></td>
+       		
+       		<td><%=m.get("saddress")%></td> 
        		<td><%=m.get("stel")%></td>
-       		<td><%=m.get("saddress")%></td>
+       	<%-- 	 <td><%=m.get("sumprice")%></td>  --%>
        		<td><%=m.get("ctime")%></td>
-       		<td><a href="jgongview?orderid=<%=m.get("orderid")%>">修改</a><a href="jgongdelete?orderid=<%=m.get("orderid")%>">删除</a>  </td>
+       		<td><a href="jgongview?orderid=<%=m.get("orderid")%>">查看详细</a><a href="jgongdelete?orderid=<%=m.get("orderid")%>">删除</a>  </td>
        </tr>
     	<% } %>
     </table>

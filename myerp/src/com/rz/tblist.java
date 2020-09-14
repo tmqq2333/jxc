@@ -34,8 +34,12 @@ public class tblist extends HttpServlet {
 		int currentpage = 1;
 		request.setCharacterEncoding("utf-8");
 		String key=request.getParameter("key");
-		if(!(key==null||key.equals("")))
+		if(key==null||key.equals("")||key.equals("null"))
+//			"null"没有找到字符的null，所以下一页没有数据
 		{
+			key="";
+		}
+		else {
 			key = new String(key.getBytes("iso-8859-1"), "utf-8");//解决中文乱码的问题
 		}
 		try {

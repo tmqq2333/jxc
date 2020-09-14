@@ -79,8 +79,9 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 		<div id="receiverinfo" class="innerclass">
 			<%if(obj!=null){%>
 				 <p>姓名:<input class="forminput" type="text" name="tbname" id="tbname" value="<%=obj.get("truename")%>"/></p>
-				<%--<p>电话:<input class="forminput" type="text" name="tbtel" id="tbTel" value="<%=obj.get("tel")%>"/></p>
-				<p>地址:<input class="forminput" type="text" name="tbaddress" id="tbaddress" value="<%=obj.get("memo")%>" /></p>--%>
+				<p>加工产品:<input class="forminput" type="text" name="tbaddress" id="tbaddress" value="" /></p>
+				<p>加工产品数量:<input class="forminput" type="text" name="tbtel" id="tbTel" value=""/></p>
+				
 				<p> 
 					<input type="button" id="btngotoorder" class="btn" value="确认下单"/>
 				</p>
@@ -110,19 +111,19 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 					return false;
 				}
 				
-				/* if(!$("#tbTel").val().length>0)//判断长度是否大于0，取反之后就数不大于0，即：没有输入内容。
+				 if(!$("#tbTel").val().length>0)//判断长度是否大于0，取反之后就数不大于0，即：没有输入内容。
 				{
-					alert("请输入收货人联系电话!");
+					alert("请输入加工产品数量!");
 					$("#tbTel").focus();//让一个表单元素获得焦点 
 					return false;
 				}
 				
 				if(!$("#tbaddress").val().length>0)//判断长度是否大于0，取反之后就数不大于0，即：没有输入内容。
 				{
-					alert("请输入收货人详细地址!");
+					alert("请输入加工产品!");
 					$("#tbaddress").focus();//让一个表单元素获得焦点 
 					return false;
-				}  */
+				} 
 				
 				//检查购物车里面是否又商品
 				var len=$("#cartable").find("tr").length;
@@ -140,6 +141,8 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				    timeout:5000, //请求超时的时间，以毫秒计
 				    data:{
 				    	tbname:$("#tbname").val(),
+				    	tbaddress:$("#tbaddress").val(),
+				    	tbtel:$("#tbTel").val()
 				     
 				    },
 				    dataType:'json', //预期的服务器返回参数类型
@@ -273,7 +276,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 					var yul=oldnum.toFixed(3) - num.toFixed(3);
 					/* $(item).parent().next().find("span").text(xiaoji.toFixed(2)); */
 					
-					$(".oldcount").text(yul.toFixed(3));
+					$(item).parent().next().children().text(yul.toFixed(3));
 					
 				});
 				

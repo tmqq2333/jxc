@@ -19,23 +19,24 @@ List<Map<String, Object>> orderitems = (List<Map<String, Object>>)request.getAtt
 <table border="0" cellspacing="0" cellpadding="0" class="tb tblist" style="margin-bottom:2px;">
 <tr><td style="width:120px;">订单号</td><td style="text-align:left;"><%=orderhead.get("orderid")%></td></tr>
 
-<tr><td>总金额</td><td style="text-align:left;"><%=orderhead.get("sumprice")%></td></tr>
-<%-- <tr><td>收货人</td><td style="text-align:left;"><%=orderhead.get("sname")%></td></tr>
-<tr><td>联系电话</td><td style="text-align:left;"><%=orderhead.get("stel")%></td></tr>
-<tr><td>送货地址</td><td style="text-align:left;"><%=orderhead.get("saddress")%></td></tr> --%>
+<%-- <tr><td>总金额</td><td style="text-align:left;"><%=orderhead.get("sumprice")%></td></tr> --%>
+<tr><td>采购员</td><td style="text-align:left;"><%=orderhead.get("sname")%></td></tr>
+<tr><td>产品</td><td style="text-align:left;"><%=orderhead.get("saddress")%></td></tr> 
+<tr><td>产品数量</td><td style="text-align:left;"><%=orderhead.get("stel")%></td></tr>
+
 <tr><td>下单时间</td><td style="text-align:left;"><%=orderhead.get("ctime")%></td></tr>
 </table>
 
 <table border="0" cellspacing="0" cellpadding="0" class="tb tblist">
        <tr>
-       	  <td>商品名称</td><td style="width:120px;">单价</td><td style="width:120px;">数量</td><td style="width:200px;">合计</td>   
+       	  <td>所耗材料</td><!-- <td style="width:120px;">单价</td> --><td style="width:120px;">数量</td>   
        </tr>
        <%for (Map<String, Object> m : orderitems) { %>
         <tr>
        		<td><%=m.get("proname")%></td>
-       		<td><%=m.get("price")%></td>
+       		<%-- <td><%=m.get("price")%></td> --%>
        		<td><%=m.get("procount")%></td>
-       		<%-- <td><%=m.get("price").toString()%>*<%=m.get("procount").toString()%>=<%=Float.parseFloat(m.get("price").toString())*Float.parseFloat(m.get("procount").toString()) %> </td> --%>
+       	
        <!-- Float.parseFloat字符型转为float型 -->
        </tr>
     	<% } %>

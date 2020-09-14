@@ -62,7 +62,7 @@ public class login extends HttpServlet {
 			request.setAttribute("msg", "用户名或密码错误");
 			String msg="登录系统失败，用户名为:"+username+"密码为:"+password;
 			tblog.addmsg(3, msg, request);
-			request.getRequestDispatcher("/admin/login.jsp").forward(request, response);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}
 	}
 
