@@ -146,15 +146,15 @@ public class proadd extends HttpServlet {
 /********************************以上是文件上传的代码*******************************************************/
         
 /********************生成二维码图片开始********************/ 
-        String twocodeimgPath = this.getServletContext().getRealPath("/twocode");   
-        String twocodefilename=getDateFormat()+".jpg";
+        String twocodeimgPath = this.getServletContext().getRealPath("/twocode");   //二维码路径
+        String twocodefilename=getDateFormat()+".jpg"; //时间名
         try {			
-		     String content =pronum;		    	
-		     MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+		     String content =pronum;	//商品编号,二维码内容	    	
+		     MultiFormatWriter multiFormatWriter = new MultiFormatWriter();  //类里封装了
 		     Map hints = new HashMap();
 		     hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
-		     BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 400, 400,hints);
-		     File file1 = new File(twocodeimgPath,twocodefilename);
+		     BitMatrix bitMatrix = multiFormatWriter.encode(content, BarcodeFormat.QR_CODE, 400, 400,hints); //二维码格式，调用
+		     File file1 = new File(twocodeimgPath,twocodefilename);  //指向路径
 		     MatrixToImageWriter.writeToFile(bitMatrix, "jpg", file1);			
 		 } catch (Exception e) {
 		     e.printStackTrace();
@@ -165,10 +165,10 @@ public class proadd extends HttpServlet {
         
 /*********************************数据保存到到数据库*************************************/
          DBHelper Dal=new DBHelper();
-		 String strSql=" insert into tbproduct(proname,price,brief,descriptions,address,imgurl,typeid,pronum,procodeurl) values (?,?,?,?,?,?,?,?,?) "; 
+         String strSql2=" insert into tbcliaozong(proname,imgurl,pronum,typeid,procodeurl) values (?,?,?,?,?) "; 
+         String strSql=" insert into tbproduct(proname,brief,descriptions,address,imgurl,typeid,pronum,procodeurl) values (?,?,?,?,?,?,?,?) "; 
 		 List<Object> params = new ArrayList<Object>();
 		 params.add(proname);
-		 params.add(price);
 		 params.add(brief);	  
 		 params.add(descriptions);	
 		 params.add(address);	
@@ -177,6 +177,13 @@ public class proadd extends HttpServlet {
 		 params.add(pronum);	
 		 params.add(twocodefilename);	
 		 Dal.excuteSql(strSql, params);
+		 List<Object> params2 = new ArrayList<Object>();
+		 params2.add(proname);	
+		 params2.add(picname);
+		 params2.add(pronum);
+		 params2.add(typeid);
+		 params2.add(twocodefilename);
+		 Dal.excuteSql(strSql2, params2);
 /*********************************数据保存到到数据库*************************************/
         response.setCharacterEncoding("utf-8");
    		response.setContentType("text/html;charset=utf-8");

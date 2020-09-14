@@ -13,16 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class orderheadlist
+ * Servlet implementation class jgongheadlist
  */
-@WebServlet("/orderheadlist")
-public class orderheadlist extends HttpServlet {
+@WebServlet("/jgongheadlist")
+public class jgongheadlist extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public orderheadlist() {
+    public jgongheadlist() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -43,7 +43,7 @@ public class orderheadlist extends HttpServlet {
 		
 		DBHelper Dal=new DBHelper();
 		
-		String strSql=" select id from tborderhead order by id desc "; 
+		String strSql=" select id from tbsaleorderhead order by id desc "; 
 		List<Map<String, Object>> listall = null;
 		List<Object> params = new ArrayList<Object>();
 		try {
@@ -97,7 +97,7 @@ public class orderheadlist extends HttpServlet {
 		String pagestr=pageobj.GetPageInfo();
 		request.setAttribute("pagestr", pagestr);
 		request.setAttribute("list", listpage);
-		request.getRequestDispatcher("./admin/orderheadlist.jsp").forward(request, response);
+		request.getRequestDispatcher("./admin/jgongheadlist.jsp").forward(request, response);
 	}
 
 	/**

@@ -256,7 +256,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				
 				/*循环获取id  */
 				//数据id，商品id
-				
+				//修改数量
 				$.ajax({
 				    url:'uiupdatecarcount', //要请求的url地址
 				    type:'POST', //请求方法 GET or POST

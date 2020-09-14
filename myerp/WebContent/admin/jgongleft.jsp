@@ -19,7 +19,7 @@ String pagestr = (String)request.getAttribute("pagestr");
 
 <table border="0" cellspacing="0" cellpadding="0" class="tb tblist">
        <tr>
-       	 <td style="width:50px;"><input type="checkbox" id="cbSelectAll" style="width:30px;"/></td><td style="width:150px;">产品图片</td><td style="width:150px;">编号</td><td style="width:150px;">二维码</td><td>产品名称</td><!-- <td style="width:80px;">价格 --></td>
+       	 <td style="width:50px;"><input type="checkbox" id="cbSelectAll" style="width:30px;"/></td><td style="width:150px;">产品图片</td><td style="width:150px;">编号</td><td style="width:150px;">二维码</td><td>产品名称</td> <td style="width:80px;">数量</td>
        </tr>
        <%for (Map<String, Object> m : list) { %>
         <tr>
@@ -28,7 +28,7 @@ String pagestr = (String)request.getAttribute("pagestr");
        		<td><%=m.get("pronum")%></td>
        		<td><img src="./twocode/<%=m.get("procodeurl")%>" style="width:38px;height:38px;padding:5px 0px;"></td>
        		<td><%=m.get("proname")%></td>       		
-       		<%-- <td><%=m.get("price")%></td> --%>
+       		<td><%=m.get("zprocount")%></td> 
        </tr>
     	<% } %>
     </table>
@@ -54,9 +54,9 @@ String pagestr = (String)request.getAttribute("pagestr");
            /* 用0数据0 */
         });
         s+= ",0";
-        $.post("./ajax?" + Math.random(), { rnum: "8", idstr: s}, function (res) {
+        $.post("./ajax?" + Math.random(), { rnum: "13", idstr: s}, function (res) {
             location.reload();/* 再加载 */
-            window.parent.frames["right"].document.location.href="./orderright";
+            window.parent.frames["right"].document.location.href="./jgongright";
             /* 刷新orderright */
             //window.parent.frames["right"].document.location.reload();
         });

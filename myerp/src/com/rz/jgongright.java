@@ -37,7 +37,7 @@ public class jgongright extends HttpServlet {
 		List<Map<String, Object>> carlistall = null;
 		List<Object> params2 = new ArrayList<Object>();
 		DBHelper Dal=new DBHelper();
-		String strSqlpager=" select  * from tbshoppingcar where sessionid=? "; 
+		String strSqlpager=" select  * from tbjgongcar where sessionid=? "; 
 		params2.add(sessionid);
 		try {
 			carlistall=Dal.executeQuery(strSqlpager, params2);
@@ -45,7 +45,7 @@ public class jgongright extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("carlistall", carlistall);		
-		request.getRequestDispatcher("/admin/orderright.jsp").forward(request, response);
+		request.getRequestDispatcher("/admin/jgongright.jsp").forward(request, response);
 	}
 
 	/**

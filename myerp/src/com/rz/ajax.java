@@ -53,6 +53,7 @@ public class ajax extends HttpServlet {
 		    case "8":addtocarbatch(request,response);break; 
 		    case "9":getSaleSumPricesByMonth(request,response);break; 
 		    case "12":gettbbaobiao(request,response);break;
+		    case "13":addjgongtocar(request,response);break; 
 		    default : break;
 		}
        //接受ajax的data，选择式用方法返回数据		
@@ -107,7 +108,7 @@ public class ajax extends HttpServlet {
 		
 	}
 	
-	
+	//购物车
 	protected void addtocarbatch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idstr=request.getParameter("idstr");
 		String[] idarray = idstr.split(",");//放入数组，隔开
@@ -174,7 +175,76 @@ public class ajax extends HttpServlet {
 		}
 	}
 	
+	protected void addjgongtocar(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String idstr=request.getParameter("idstr");
+		String[] idarray = idstr.split(",");//放入数组，隔开
+	    for(String s:idarray)//循环插入数据
+        {
+        	if(!s.equals("0"))
+        	{
+        		addjgongtocaring(request,response,s);
+//        		清除0，获取数据
+        	}
+        }		
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/json;charset=utf-8");
+		response.getWriter().write("{\"msg\":\"ok\"}");
+		
+	}
 	
+	//加工
+	
+	protected void addjgongtocaring(HttpServletRequest request, HttpServletResponse response,String id) throws ServletException, IOException {
+		DBHelper db=new DBHelper();
+		String sessionid=request.getSession().getId();
+		Boolean flag=false;
+    	String StrSqlexist="select * from tbjgongcar where sessionid=? and proid=? ";
+    	List<Map<String, Object>> carrecordlist = null;
+    	List<Object> paramsexist = new ArrayList<Object>();
+    	paramsexist.add(sessionid);
+    	paramsexist.add(id);
+    	try {
+			carrecordlist=db.executeQuery(StrSqlexist, paramsexist);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    	//没有就添加，有就修改
+    	if(carrecordlist.size()>0)
+    	{
+    		flag=true;
+    	}
+		if(flag)
+		{
+			//修改个数
+			String strSql1="update tbjgongcar set procount=procount+1 where sessionid=? and proid=? ";
+			List<Object> paramsupdate = new ArrayList<Object>();
+			paramsupdate.add(sessionid);
+			paramsupdate.add(id);
+			db.excuteSql(strSql1, paramsupdate);
+		}
+		else
+		{
+			//根据id把商品信息查询出来。
+			List<Object> params = new ArrayList<Object>();
+			String StrSqlpro="select * from tbcliaozong where id="+id;
+			Map<String, Object> obj=db.getSingleObject(StrSqlpro, params);
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+			String createtime=df.format(new Date());
+			//新增
+			String strSql2="insert into tbjgongcar (sessionid,proname,proid,procount,ctime,imgurl,oldcount) values(?,?,?,?,?,?,?) ";
+			params.add(sessionid);
+			params.add(obj.get("proname"));
+			params.add(id);
+			params.add(1);
+			params.add(createtime);
+			params.add(obj.get("imgurl"));
+			params.add(obj.get("zprocount"));
+			/*params.add(obj.get("price"));*/
+			db.excuteSql(strSql2, params);
+			
+		}
+	}
 	public String getDateFormat(){
 	    SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 	    return df.format(new Date());    
