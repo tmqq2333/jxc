@@ -15,7 +15,7 @@
 	<link rel="stylesheet" type="text/css" href="../css/comm.css" />
 	<style type="text/css">
 		body {
-				background-color: #0044C0;
+				background-color: #2f2f35;
 				font-family: 'Microsoft YaHei';
 				font-size: 14px;
 				background-repeat: no-repeat;
@@ -30,8 +30,10 @@
 				top:calc(50% - 166px);
 				border: 0;
 				border-radius: 3px;
-				color: white;
-				background-image: url(../img/loginbg.png);
+				color: back;
+				background-color:#535356;
+				border: solid 6px #c0eaeefa;
+				/* background-image: url(../img/loginbg.png); */
 			}
 			
 			#logincontainer p {
@@ -39,6 +41,7 @@
 				height: 46px;
 				line-height: 46px;
 				clear: both;
+				color:#f0f9ff ;
 			}
 			
 			#logincontainer p span {
@@ -63,12 +66,13 @@
 			}
 			
 			#logincontainer p span input#btnlogin {
-				margin-left: 88px;
-				width: 100px;
+				margin-left: 54%;
+				width: 130px;
 				height: 28px;
 				border: 0;
+				margin-top:30px;
 				border-radius: 5px;
-				background-color: #D56409;
+				background-color: #919ab4;
 				color: white;
 			}
 			
@@ -118,10 +122,12 @@
 				margin-top:25px;
 				font-size:26px;
 				text-align: center;
+				
 			}
 			
 			.loginform{
-				margin-left: 230px;
+				margin-left: calc(50% - 153px);
+				
 			}
 
 	</style>
@@ -129,7 +135,7 @@
 <body>
     <form  method="post" action="/myerp/login">
     	<div id="logincontainer">
-			<p class="title">重庆融智实训项目-进销存管理系统V1.0</p>
+			<p class="title">朗润建材进销存管理系统V1.0</p>
 			<div class="loginform">
 				<p id="msg"><strong><%=msg%></strong></p>
 				<p> <span class="lablespan">用户名:</span><span><input name="username" type="text" id="username" /></span></p>

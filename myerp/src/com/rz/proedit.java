@@ -168,10 +168,10 @@ public class proedit extends HttpServlet {
         
 /*********************************保存数据开始*************************************/
          DBHelper Dal=new DBHelper();
-		 String strSql=" update tbproduct set proname=?,price=?,brief=?,descriptions=?,address=?,imgurl=?,typeid=? ,pronum=?,procodeurl=? where id=?"; 
+		 String strSql=" update tbproduct set proname=?,brief=?,descriptions=?,address=?,imgurl=?,typeid=? ,pronum=?,procodeurl=? where id=?"; 
 		 List<Object> params = new ArrayList<Object>();
 		 params.add(proname);
-		 params.add(price);
+/*		 params.add(price);*/
 		 params.add(brief);	  
 		 params.add(descriptions);	
 		 params.add(address);
@@ -185,6 +185,25 @@ public class proedit extends HttpServlet {
 		 params.add(twocodefilename);
 		 params.add(id);
 		 Dal.excuteSql(strSql, params);
+		 
+		 
+		 String strSqlu=" update tbcliaozong set proname=?,imgurl=?,typeid=? ,pronum=?,procodeurl=? where id=?"; 
+		 List<Object> paramsu = new ArrayList<Object>();
+		 paramsu.add(proname);
+		/* params.add(price);*/
+//		 params.add(brief);	  
+//		 params.add(descriptions);	
+//		 params.add(address);
+		 if(picname==null||picname.equals(""))
+		 {
+			 picname=oldurl;
+		 }
+		 paramsu.add(picname);
+		 paramsu.add(typeid);
+		 paramsu.add(pronum);
+		 paramsu.add(twocodefilename);
+		 paramsu.add(id);
+		 Dal.excuteSql(strSqlu, paramsu);
 		 
 /*********************************保存数据结束*************************************/
         response.setCharacterEncoding("utf-8");
