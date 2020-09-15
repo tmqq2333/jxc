@@ -12,16 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class prolistforsearch
+ * Servlet implementation class jgongforsearch
  */
-@WebServlet("/prolistforsearch")
-public class prolistforsearch extends HttpServlet {
+@WebServlet("/jgongforsearch")
+public class jgongforsearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public prolistforsearch() {
+    public jgongforsearch() {
         super();
         
     }
@@ -50,11 +50,11 @@ public class prolistforsearch extends HttpServlet {
 				currentpage = 1;
 			}
 			DBHelper Dal = new DBHelper();
-			String strSql = " select id from tbcliaozong order by id desc ";
+			String strSql = " select id from v_canpitem order by id desc ";
 			//所有的id
 			if(!(key==null||key.equals("")))
 			{
-				strSql = " select id from tbcliaozong where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc ";
+				strSql = " select id from v_canpitem where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc ";
 			//匹配proname or pronum
 			}
 			
@@ -67,35 +67,7 @@ public class prolistforsearch extends HttpServlet {
 			}
             //前面就是为了获取数据长度
 			
-			
-//			for (Map<String, Object> m : listall) {
-//				String proname=m.get("proname");
-//				String proid=
-//				String imgurl=
-//				String zprice=
-//			    String zprocount=
-//						
-//			}
-//			List<Object> params6 = new ArrayList<Object>();
-//			params6.add(proname);
-//			params6.add(proid);
-//			params6.add(imgurl);	
-//			params6.add(tel);
-//			params6.add(zprocount);
-//			
-//			//2、把接受到的参数添加到数据库
-//			
-//			//定义sql语句
-//			if(strSqlin.get("proid"))
-//			{
-//			String strSqlin=" insert into tbcliaozong (proname,proid,imgurl,zprice,zprocount) values (?,?,?,?,?)";
-//			Dal.excuteSql(strSqlin, params6);
-//			}//定义参数对象
-//			else{
-//			String strSqlup="update tbcliaozong set zprice=?,zprocount=? where proid=?";
-//			Dal.excuteSql(strSqlup, params6);	
-//			}
-			
+	
 			
 			Pager pageobj = new Pager();//类
 			pageobj.allrecordcount = listall.size();//数据长度
@@ -106,11 +78,11 @@ public class prolistforsearch extends HttpServlet {
 
 			
 			int startindex = pageobj.pagesize * (pageobj.currentpage - 1);
-			String strSqlpager = " select * from tbcliaozong order by id desc limit "+startindex + "," + pageobj.pagesize + "";
+			String strSqlpager = " select * from v_canpitem order by id desc limit "+startindex + "," + pageobj.pagesize + "";
 			//文本怎么显示
 			if(!(key==null||key.equals("")))
 			{
-				strSqlpager = " select * from tbcliaozong where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc limit "+startindex + "," + pageobj.pagesize + "";
+				strSqlpager = " select * from v_canpitem where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc limit "+startindex + "," + pageobj.pagesize + "";
 			//如果input不空，查询数据
 			}
 			
@@ -123,7 +95,7 @@ public class prolistforsearch extends HttpServlet {
 			String pagestr = pageobj.GetPageInfo();
 			request.setAttribute("pagestr", pagestr);
 			request.setAttribute("list", listpage);//传递
-			request.getRequestDispatcher("/admin/prolistforsearch.jsp").forward(request,
+			request.getRequestDispatcher("/admin/jgongforsearch.jsp").forward(request,
 					response);
 	}
 

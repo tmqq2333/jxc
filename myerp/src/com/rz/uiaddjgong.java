@@ -56,7 +56,7 @@ public class uiaddjgong extends HttpServlet {
 	    List<Map<String,Object>> carprolist=null;
 	    try {
 	    	carprolist=db.executeQuery(strSqlcarpros,params);
-//	 executeQuery插入   	
+//	 executeQuery插入   购物车数据放进	carprolist里
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

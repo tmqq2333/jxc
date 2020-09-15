@@ -47,7 +47,7 @@
                 //cache：true,//默认为true（当dataType为script时，默认为false）设置为false将不会从浏览器缓存中加载请求信息。
                 success: function (data) {
                    //{"datamonths":["1月","2月","3月"],"dataitems":[100,200,150]}
-                    var optionhasvalue = {
+                   /*  var optionhasvalue = {
                         xAxis: {
                             type: 'category',
                             data: data.datamonths
@@ -62,11 +62,24 @@
                         }]
                     };
                     myChart.setOption(optionhasvalue);
+                } */
+                 var optionhasvalue = {
+                		    xAxis: {
+                		        type: 'category',
+                		        data: data.datamonths
+                		    },
+                		    yAxis: {
+                		        type: 'value'
+                		    },
+                		    series: [{
+                		        data: data.dataitems,
+                		        type: 'bar'
+                		    }]	
+                  };
+                 myChart.setOption(optionhasvalue);
                 }
             });
-
-        }
-
+            }
         getajaxdata(2020);
         $("#yearselect").change(function () {
             var v = $(this).val();
