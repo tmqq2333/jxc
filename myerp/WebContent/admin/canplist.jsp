@@ -15,24 +15,25 @@
 List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute("list");
 String pagestr = (String)request.getAttribute("pagestr");
 %>
-<div class="path">当前位置:/夜鹰进销存系统/库存管理/库存查询             <span class="rightbox"><input type="text" id="tbkey"/><input type="button" id="btnsearch" value="查询"/></span></div>
+<p class="path">当前位置:/夜鹰进销存系统/产品中心/产品列表</p>
 
 <table border="0" cellspacing="0" cellpadding="0" class="tb tblist">
        <tr>
-       	 <td style="width:50px;">ID</td><!-- <td style="width:150px;">产品图片</td> --><!-- <td style="width:150px;">类别</td><td style="width:150px;">编号</td> --><!-- <td style="width:150px;">二维码</td> --><td>产品名称</td><!-- <td style="width:80px;">价格</td> --><td style="width:120px;">数量</td>
+       	 <td style="width:50px;">ID</td><td style="width:150px;">产品图片</td><td style="width:150px;">类别</td><td style="width:150px;">编号</td><td style="width:150px;">二维码</td><td>产品名称</td><!-- <td style="width:80px;">价格</td> --><td style="width:120px;">产地</td><td style="width:80px;">操作</td>   
        </tr>
-     <%for (Map<String, Object> m : list) { %>
+       <%for (Map<String, Object> m : list) { %>
         <tr>
        		<td><%=m.get("id")%></td>
-       		<%-- <td><img src="./upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0px;"></td>
+       		<td><img src="./upload/<%=m.get("imgurl")%>" style="width:120px;height:35px;padding:5px 0px;"></td>
        		<td data-typeid="<%=m.get("typeid")%>" class="typename" title="<%=m.get("fullpath")%>"><%=m.get("typename")%></td>
        		<td><%=m.get("pronum")%></td>
        		<td><img src="./twocode/<%=m.get("procodeurl")%>" style="width:38px;height:38px;padding:5px 0px;"></td>
-       		 --%><td><%=m.get("proname")%></td>       		
-       		<%-- <td><%=m.get("zprice")%></td> --%>
-       		<td><%=m.get("sumprocount")%></td>
+       		<td><%=m.get("proname")%></td>       		
+       		<%-- <td><%=m.get("price")%></td> --%>
+       		<td><%=m.get("address")%></td>
+       		<td><a href="canpedit?id=<%=m.get("id")%>">修改</a> <a href="canpdelete?id=<%=m.get("id")%>">删除</a></td>
        </tr>
-    	<% } %> 
+    	<% } %>
     </table>
     
     <div class="pager">
@@ -41,15 +42,7 @@ String pagestr = (String)request.getAttribute("pagestr");
     
     <script src="./js/jquery-1.11.0.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript">
-    
-    var key = localStorage.getItem("keyprosearch");//后台数据接收
-    $("#tbkey").val(key);
-    $("#btnsearch").click(function () {
-        var key = $("#tbkey").val();
-        localStorage.setItem("keyprosearch", key);//key放进localStorage存储器下的keyprosearch，
-        location.href = "jgongforsearch?key=" + key+"&classid=0";	;
-    });
-  
+    	
     </script>
 
 </body>

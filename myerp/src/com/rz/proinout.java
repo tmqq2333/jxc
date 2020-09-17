@@ -49,10 +49,12 @@ public class proinout extends HttpServlet {
 				String tbprooldcount=request.getParameter("tbprooldcount");		
 				String tbprocount=request.getParameter("tbprocount");		
 				String tbprounit=request.getParameter("tbprounit");	
+				String tbprice=request.getParameter("tbprice");	
+				String tbzprice=request.getParameter("tbzprice");	
 				Date time1=new Date();
 			    SimpleDateFormat df1= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			    String ctime=df1.format(time1);
-				String strSql1=" insert into tbinout (opttype,proid,pronum,proname,protype,proimgurl,prooldnum,proaddnum,unitname,ctime) values (?,?,?,?,?,?,?,?,?,?)";
+				String strSql1=" insert into tbinout (opttype,proid,pronum,proname,protype,proimgurl,prooldnum,proaddnum,unitname,ctime,price,zprice) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 				List<Object> params = new ArrayList<Object>();
 				
 				params.add(t);
@@ -65,12 +67,14 @@ public class proinout extends HttpServlet {
 				params.add(tbprocount);
 				params.add(tbprounit);
 				params.add(ctime);	
+				params.add(tbprice);
+				params.add(tbzprice);	
 				
 				DBHelper Dal=new DBHelper();		
 				Dal.excuteSql(strSql1, params);	
 				
 				// strSql2="update tbproduct set procount=procount+? where pronum=?";
-				String strSql2="update tbproduct set procount=(SELECT SUM(opttype*proaddnum) from tbinout where pronum=?) where pronum=?";		
+				String strSql2="update tbcanpproduct set procount=(SELECT SUM(opttype*proaddnum) from tbinout where pronum=?) where pronum=?";		
 				//int procountres=Integer.parseInt(tbprocount)*Integer.parseInt(t);	
 				List<Object> params2 = new ArrayList<Object>();			
 				params2.add(tbpronum);
@@ -78,7 +82,7 @@ public class proinout extends HttpServlet {
 				Dal.excuteSql(strSql2, params2);
 				response.setCharacterEncoding("utf-8");
 				response.setContentType("text/html;charset=utf-8");
-				response.getWriter().write("<font color='green'>入库成功！</font>");
+				response.getWriter().write("<font color='green'>出库成功！</font>");
 				response.setHeader("Refresh", "3;URL="+request.getContextPath()+"/admin/proinout.jsp?t="+t);	
 	}
 

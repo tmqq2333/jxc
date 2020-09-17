@@ -53,6 +53,31 @@ public class jgongheadlist extends HttpServlet {
 		}
 		
 		
+		//产品数据放进产品表里 
+		 String strSqp=" select * from v_canpitem"; 
+		 List<Map<String,Object>> listitemsp=new ArrayList<Map<String, Object>>();
+		 List<Object> paramsp = new ArrayList<Object>();
+		 try {
+			 listitemsp=Dal.executeQuery(strSqp, paramsp);
+		 } catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		 for (Object item : listitemsp) {
+		 	Map<String, Object> temp=(Map<String, Object>)item;
+			String proname=temp.get("proname").toString();
+//			Float sumprocount=temp.get("sumprocount").Float.valueOf();
+			double sumprocount=(double)temp.get("sumprocount");
+			String  strSqlt="update tbcanpproduct set zprocount=?  where proname=?";
+			
+			List<Object> params9 = new ArrayList<Object>();
+			params9.add(sumprocount);	
+			params9.add(proname);
+			Dal.excuteSql(strSqlt, params9);
+			
+			
+		 }		
+		
 		//分页
 		Pager pageobj=new Pager();
 		pageobj.allrecordcount=listall.size();

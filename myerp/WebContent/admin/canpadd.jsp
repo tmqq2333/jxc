@@ -11,8 +11,8 @@
 		<script src="../ueditor/lang/zh-cn/zh-cn.js" type="text/javascript" charset="utf-8" ></script>
 	</head>
 	<body>
-		<form action="../proadd" method="post" enctype="multipart/form-data">
-			<p class="path">当前位置：夜鹰进销存系统/产品中心/新增材料</p>
+		<form action="../canpadd" method="post" enctype="multipart/form-data">
+			<p class="path">当前位置：夜鹰进销存系统/产品中心/新增产品</p>
 			<table border="0" cellspacing="0" cellpadding="0" class="tb">
 				<tr>
 					<td class="lable">类别</td><td id="typeidbox">

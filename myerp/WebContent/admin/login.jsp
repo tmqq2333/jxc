@@ -137,7 +137,7 @@
     	<div id="logincontainer">
 			<p class="title">朗润建材进销存管理系统V1.0</p>
 			<div class="loginform">
-				<p id="msg"><strong><%=msg%></strong></p>
+				<p id="msg" style="color:red; "><strong><%=msg%></strong></p>
 				<p> <span class="lablespan">用户名:</span><span><input name="username" type="text" id="username" /></span></p>
 				<p> <span class="lablespan">密    码:</span><span><input name="password" type="password" id="password" /></span> </p>
 				<p><span><input type="submit" name="btnlogin" value="登 录" id="btnlogin" /></span></p>

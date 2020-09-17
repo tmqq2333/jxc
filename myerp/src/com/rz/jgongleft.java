@@ -41,7 +41,7 @@ public class jgongleft extends HttpServlet {
 			currentpage = 1;
 		}
 		DBHelper Dal = new DBHelper();		
-		String strSql = " select id from tbcliaozong order by id desc ";
+		String strSql = " select id from tbcliaozong where zprocount is not null   order by id desc ";
 		List<Map<String, Object>> listall = null;
 		List<Object> params = new ArrayList<Object>();
 		try {
@@ -55,7 +55,7 @@ public class jgongleft extends HttpServlet {
 		pageobj.currentpage = currentpage;
 		pageobj.urlname = "";		
 		int startindex = pageobj.pagesize * (pageobj.currentpage - 1);
-		String strSqlpager = " select * from tbcliaozong order by id desc limit "+ startindex + "," + pageobj.pagesize + "";
+		String strSqlpager = " select * from tbcliaozong where zprocount is not null order by id desc limit "+ startindex + "," + pageobj.pagesize + "";
 //		v_product视图
 		List<Map<String, Object>> listpage = null;
 		try {

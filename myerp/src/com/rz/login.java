@@ -38,8 +38,11 @@ public class login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username=request.getParameter("username"); 
-		String password=request.getParameter("password"); 
+		String usernam=request.getParameter("username"); 
+		String passwor=request.getParameter("password"); 
+		String username=comm.sqlValidate(usernam); 
+		String password=comm.sqlValidate(passwor); 
+		
 		DBHelper Dal=new DBHelper();
 		String strSql=" select * from tbusers where username='"+username+"' and password='"+password+"'"; 
 		List<Object> params = new ArrayList<Object>();
@@ -62,7 +65,7 @@ public class login extends HttpServlet {
 			request.setAttribute("msg", "用户名或密码错误");
 			String msg="登录系统失败，用户名为:"+username+"密码为:"+password;
 			tblog.addmsg(3, msg, request);
-			request.getRequestDispatcher("login.jsp").forward(request, response);
+			request.getRequestDispatcher("/admin/login.jsp").forward(request, response);
 		}
 	}
 

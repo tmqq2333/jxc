@@ -1,10 +1,9 @@
-﻿package com.rz;
+package com.rz;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -27,16 +26,16 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.common.BitMatrix;
 
 /**
- * Servlet implementation class proadd
+ * Servlet implementation class canpadd
  */
-@WebServlet("/proadd")
-public class proadd extends HttpServlet {
+@WebServlet("/canpadd")
+public class canpadd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public proadd() {
+    public canpadd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -166,13 +165,8 @@ public class proadd extends HttpServlet {
         
 /*********************************数据保存到到数据库*************************************/
          DBHelper Dal=new DBHelper();
-        	
-         
-         
-         
-         
-         String strSql2=" insert into tbcliaozong(proname,imgurl,pronum,typeid,procodeurl) values (?,?,?,?,?) "; 
-         String strSql=" insert into tbproduct(proname,brief,descriptions,address,imgurl,typeid,pronum,procodeurl) values (?,?,?,?,?,?,?,?) "; 
+       
+         String strSql=" insert into tbcanpproduct(proname,brief,descriptions,address,imgurl,typeid,pronum,procodeurl) values (?,?,?,?,?,?,?,?) "; 
 		 List<Object> params = new ArrayList<Object>();
 		 params.add(proname);
 		 params.add(brief);	  
@@ -183,19 +177,12 @@ public class proadd extends HttpServlet {
 		 params.add(pronum);	
 		 params.add(twocodefilename);	
 		 Dal.excuteSql(strSql, params);
-		 List<Object> params2 = new ArrayList<Object>();
-		 params2.add(proname);	
-		 params2.add(picname);
-		 params2.add(pronum);
-		 params2.add(typeid);
-		 params2.add(twocodefilename);
-	
-		 Dal.excuteSql(strSql2, params2);
+		
 /*********************************数据保存到到数据库*************************************/
         response.setCharacterEncoding("utf-8");
    		response.setContentType("text/html;charset=utf-8");
    		response.getWriter().write("<font color='green'>保存成功,3秒之后发生跳转!</font>");
-   		response.setHeader("Refresh", "3;URL="+request.getContextPath()+"/admin/proadd.jsp");
+   		response.setHeader("Refresh", "3;URL="+request.getContextPath()+"/admin/canpadd.jsp");
 		
 	}
 

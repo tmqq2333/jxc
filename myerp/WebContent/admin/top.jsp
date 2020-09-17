@@ -38,7 +38,7 @@ List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute
 				margin-top: 2px;
 				border-top-left-radius: 0px;
 				border-top-right-radius: 15px;
-				background-image: url(./img/aixin.png);
+				/* background-image: url(./img/aixin.png); */
 				background-repeat: no-repeat;
 				background-position: 1px 6px;
 				border: solid 4px #c0eaeefa;

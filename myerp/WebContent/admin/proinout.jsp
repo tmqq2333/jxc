@@ -20,7 +20,9 @@
 	<tr><td class="lable">商品图片</td><td><img src="" id="proimg"/><input type="hidden" name="tbproimg" id="tbproimg" /></td></tr>
 	<tr><td class="lable"><%=request.getParameter("t").equals("1")?"入库":"出库" %>前数量</td><td><input type="text" name="tbprooldcount" id="tbprooldcount"/></td></tr>
 	<tr><td class="lable"><%=request.getParameter("t").equals("1")?"入库":"出库" %>数量</td><td><input type="text" name="tbprocount" id="tbprocount"/></td></tr>
-	<tr><td class="lable">单位</td><td><input type="text" name="tbprounit"/></td></tr>	
+	<tr><td class="lable">单位</td><td><input type="text" name="tbprounit"/></td></tr>
+	<tr><td class="lable">单价</td><td><input type="text" name="tbprice"/></td></tr>	
+	<tr><td class="lable">金额</td><td></td></tr>
 	<tr><td class="lable">&nbsp;</td><td><input type="submit" name="btnsave" value="保存" id="btnsave"/></td></tr>
 </table>
 </form>

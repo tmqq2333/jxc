@@ -52,7 +52,32 @@ public class orderheadlist extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		
+		//视图数据放进材料表里 
+		 String strSqp=" select * from v_orderitems"; 
+		 List<Map<String,Object>> listitemsp=new ArrayList<Map<String, Object>>();
+		 List<Object> paramsp = new ArrayList<Object>();
+		 try {
+			 listitemsp=Dal.executeQuery(strSqp, paramsp);
+		 } catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		 for (Object item : listitemsp) {
+		 	Map<String, Object> temp=(Map<String, Object>)item;
+			String proname=temp.get("proname").toString();
+//			Float sumprocount=temp.get("sumprocount").Float.valueOf();
+			double sumprocount=(double)temp.get("sumprocount");
+			double sumprice=(double)temp.get("sumprice");
+			String  strSqlt="update tbcliaozong set zprocount=?,zprice=?  where proname=?";
+			
+			List<Object> params9 = new ArrayList<Object>();
+			params9.add(sumprocount);
+			params9.add(sumprice);	
+			params9.add(proname);
+			Dal.excuteSql(strSqlt, params9);
+			
+			
+		 }		
 	
 		//取出id对比，如果有，执行修改数量，金额。无则添加
 		//数据库取出同一产品的数量，添加
