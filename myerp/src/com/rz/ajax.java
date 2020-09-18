@@ -52,6 +52,8 @@ public class ajax extends HttpServlet {
 		    case "7":getproviewbynum(request,response);break; 
 		    case "8":addtocarbatch(request,response);break; 
 		    case "9":getSaleSumPricesByMonth(request,response);break; 
+		    case "10":getaddresshtml(request,response);break; 
+		    case "11":getcanphtml(request,response);break; 
 		    case "12":gettbbaobiao(request,response);break;
 		    case "13":addjgongtocar(request,response);break; 
 		    default : break;
@@ -70,35 +72,36 @@ public class ajax extends HttpServlet {
 	}
 	//每月进货总金额报表
 	protected void getSaleSumPricesByMonth(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String StrSql="SELECT DATE_FORMAT(ctime,'%Y-%m') as ctime,sum(sumprice) as sumprice FROM tborderhead where year(ctime)=? GROUP BY  ctime";
+		String StrSql="select proname,sum(procount) as sumcount from v_proitem where DATE_FORMAT(ctime,'%Y') =? GROUP BY proname";
 		String cyear=request.getParameter("cyear");
 		List<Object> params= new ArrayList<Object>();
 		params.add(cyear);
 		DBHelper db=new DBHelper();
 		List<Map<String, Object>> reslist = null;
+		
 		String html="";
-		//{"datamonths":["1月","2月","3月"],"dataitems":[100,200,150]}
+		//{"data1":["MateBook 13","戴尔DELL灵越5000"],"data2":[{"MateBook 13":100},{"戴尔DELL灵越5000":200}]}
 		try {
 			reslist=db.executeQuery(StrSql, params);
-			String html_datamonths="[";
-			String html_dataitems="[";
+			String html_1="[";
+			String html_2="[";
 			int i=1;
 			for (Map<String, Object> m : reslist) {
 				if(i==reslist.size())
 				{
-					html_datamonths+="\""+m.get("ctime")+"\"";
-					html_dataitems+=m.get("sumprice");
+					html_1+="\""+m.get("proname")+"\"";
+					html_2+="{\"name\":\""+m.get("proname")+"\",\"value\":"+m.get("sumcount")+"}";
 				}
 				else
 				{
-					html_datamonths+="\""+m.get("ctime")+"\",";
-					html_dataitems+=m.get("sumprice")+",";
+					html_1+="\""+m.get("proname")+"\",";
+					html_2+="{\"name\":\""+m.get("proname")+"\",\"value\":"+m.get("sumcount")+"},";
 				}
 				i++;
 			}
-			html_datamonths+="]";
-			html_dataitems+="]";
-			html="{\"datamonths\":"+html_datamonths+",\"dataitems\":"+html_dataitems+"}";
+			html_1+="]";
+			html_2+="]";
+			html="{\"data1\":"+html_1+",\"data2\":"+html_2+"}";
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}		
@@ -325,7 +328,7 @@ public class ajax extends HttpServlet {
 	protected void getproviewbynum(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String pronum=request.getParameter("pronum");
 		DBHelper Dal = new DBHelper();
-		String strSql = " select * from v_product where pronum=?";		
+		String strSql = " select * from v_canplist where pronum=?";		
 		List<Object> params = new ArrayList<Object>();
 		params.add(pronum);
 		Map<String, Object> objbyid = null;
@@ -514,7 +517,7 @@ public class ajax extends HttpServlet {
 	}
 	
 	protected void gettbbaobiao(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String StrSql="select proname,sum(price) as sumprice,sum(procount) as sumcount from v_proitem where DATE_FORMAT(ctime,'%Y') =? GROUP BY proname";
+		String StrSql="select proname,sum(proaddnum) as sumcount from tbinout where DATE_FORMAT(ctime,'%Y') =? GROUP BY proname";
 		String cyear=request.getParameter("cyear");
 		List<Object> params= new ArrayList<Object>();
 		params.add(cyear);
@@ -531,12 +534,12 @@ public class ajax extends HttpServlet {
 				if(i==reslist.size())
 				{
 					html_1+="\""+m.get("proname")+"\"";
-					html_2+="{\"name\":\""+m.get("proname")+"\",\"value\":"+m.get("sumprice")+"}";
+					html_2+="{\"name\":\""+m.get("proname")+"\",\"value\":"+m.get("sumcount")+"}";
 				}
 				else
 				{
 					html_1+="\""+m.get("proname")+"\",";
-					html_2+="{\"name\":\""+m.get("proname")+"\",\"value\":"+m.get("sumprice")+"},";
+					html_2+="{\"name\":\""+m.get("proname")+"\",\"value\":"+m.get("sumcount")+"},";
 				}
 				i++;
 			}
@@ -552,4 +555,62 @@ public class ajax extends HttpServlet {
 		
 	}
 
+
+
+
+	protected void getaddresshtml(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		listall.clear();
+		String html="<select name='address'>";
+	
+	    DBHelper Dal=new DBHelper();
+		String strSql=" select * from tbproducts order by id desc "; 
+		List<Map<String, Object>> listall = null;
+		List<Object> params = new ArrayList<Object>();
+		try {
+			listall=Dal.executeQuery(strSql, params);
+			for(Map<String, Object> item2:listall)
+			{
+				html+="<option value='"+item2.get("id")+"'>"+item2.get("production")+"</option>";
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		html+="</select>";
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/json;charset=utf-8");
+		response.getWriter().write("{\"msg10\":\""+html+"\"}");		
+	}
+
+	
+	protected void getcanphtml(HttpServletRequest request,HttpServletResponse response) throws IOException{
+		listall.clear();
+		String html="<select name='tbaddress'>";
+	
+	    DBHelper Dal=new DBHelper();
+		String strSql=" select id,proname from tbcanpproduct order by id desc "; 
+		List<Map<String, Object>> listall = null;
+		List<Object> params = new ArrayList<Object>();
+		try {
+			listall=Dal.executeQuery(strSql, params);
+			for(Map<String, Object> item2:listall)
+			{
+				html+="<option value='"+item2.get("proname")+"'>"+item2.get("proname")+"</option>";
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		html+="</select>";
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/json;charset=utf-8");
+		response.getWriter().write("{\"msg10\":\""+html+"\"}");		
+	}
+
+
+
+
 }
+

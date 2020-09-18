@@ -23,7 +23,7 @@
 				<tr><td class="lable">编号</td><td><input type="text" name="pronum"/></td></tr>
 				<!-- <tr><td class="lable">价格</td><td><input type="text" name="price"/></td></tr> -->
 				<tr><td class="lable">特色</td><td><input type="text" name="brief"/></td></tr>
-				<tr><td class="lable">产地</td><td><input type="text" name="address"/></td></tr>
+				<tr><td class="lable">产地</td><td><input type="text" name="address" value="重庆"/></td></tr>
 				<tr><td class="lable">图片</td><td><input type="file" name="file1"/></td></tr>
 				<tr><td class="lable">内容</td><td><script id="editor" type="text/plain" style="width:1024px;height:300px;"></script>
 				<input type="hidden" name="descriptions" id="descriptions"/></td></tr>
@@ -54,6 +54,8 @@
  	                		/* Math.random()随机数避免缓存，直接请求会从缓存读取，为了最新数据，给个随机数，从不同的地方（如同？id=123）读取，其实还是指向同一个地方 */
  	            /*res形参，msg后端的数据  */
  				});
+ 	                
+ 	                
  				
  			});
  			

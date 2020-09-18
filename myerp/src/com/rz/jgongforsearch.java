@@ -50,11 +50,11 @@ public class jgongforsearch extends HttpServlet {
 				currentpage = 1;
 			}
 			DBHelper Dal = new DBHelper();
-			String strSql = " select id from v_canpitem order by id desc ";
+			String strSql = " select id from v_canptype order by id desc ";
 			//所有的id
 			if(!(key==null||key.equals("")))
 			{
-				strSql = " select id from v_canpitem where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc ";
+				strSql = " select id from v_canptype where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc ";
 			//匹配proname or pronum
 			}
 			
@@ -78,11 +78,11 @@ public class jgongforsearch extends HttpServlet {
 
 			
 			int startindex = pageobj.pagesize * (pageobj.currentpage - 1);
-			String strSqlpager = " select * from v_canpitem order by id desc limit "+startindex + "," + pageobj.pagesize + "";
+			String strSqlpager = " select * from v_canptype order by id desc limit "+startindex + "," + pageobj.pagesize + "";
 			//文本怎么显示
 			if(!(key==null||key.equals("")))
 			{
-				strSqlpager = " select * from v_canpitem where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc limit "+startindex + "," + pageobj.pagesize + "";
+				strSqlpager = " select * from v_canptype where proname like '%"+key+"%' or pronum like '%"+key+"%' order by id desc limit "+startindex + "," + pageobj.pagesize + "";
 			//如果input不空，查询数据
 			}
 			

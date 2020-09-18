@@ -20,6 +20,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				width:60px;
 				height: 30px;
 				border: solid 1px #ccc;
+				position: relative;
 			}
 			
 			 .pronumber span{
@@ -31,7 +32,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				color: #757575;
 				float: left;
 				cursor: pointer;/* 鼠标指针 */
-				background-color:#eee;
+				/* background-color:#eee; */
 			} 
 			
 			 .pronumber input{
@@ -64,6 +65,10 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 			span{
 			cursor:default
 			}
+			#tbaddress select{
+			width:90px;
+			
+			}
 		</style>
 	</head>
 	<body>
@@ -71,7 +76,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 		<table border="0" cellspacing="0" cellpadding="0" class="tb tblist" id="cartable">
 			<tr><td style="width: 150px;height: 30px;">商品图片</td><td>商品名称</td><td style="width:100px;">数量</td><td style="width: 100px;">余量</td><td style="width:50px;">操作</td></tr>
 			<%for (Map<String, Object> m : carlistall) { %>
-			<tr class="proidd" data-proid="<%=m.get("proid")%>"><td><img src="upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0; "></td><td><%=m.get("proname")%></td><td><div class="pronumber"><input type="text" class="procount"  value="<%=m.get("procount")%>"/>吨 </div>  </td><td  ><span data-count="<%=m.get("oldcount")%>" class="oldcount"></span>吨</td><td><span class="del">删除</span></td></tr>
+			<tr class="proidd" data-proid="<%=m.get("proid")%>"><td><img src="upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0; "></td><td><%=m.get("proname")%></td><td><div class="pronumber"><input type="text" class="procount"  value="<%=m.get("procount")%>"/><span style="	position: absolute;right:-20px;top:15px;">吨</span> </div>  </td><td  ><span data-count="<%=m.get("oldcount")%>" class="oldcount"></span>吨</td><td><span class="del">删除</span></td></tr>
 			<%}%>
 		</table>
 		
@@ -79,7 +84,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 		<div id="receiverinfo" class="innerclass">
 			<%if(obj!=null){%>
 				 <p>姓名:<input class="forminput" type="text" name="tbname" id="tbname" value="<%=obj.get("truename")%>"/></p>
-				<p>加工产品:<input class="forminput" type="text" name="tbaddress" id="tbaddress" value="" /></p>
+				<p>加工产品:<span id="tbaddress"></span><!-- <input class="forminput" type="text" name="tbaddress" id="tbaddress" value="" /> --></p>
 				<p>加工产品数量:<input class="forminput" type="text" name="tbtel" id="tbTel" value=""/></p>
 				
 				<p> 
@@ -101,6 +106,17 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				$("#receiverinfo").slideDown();
 			});
 			
+           $(function(){
+ 				
+ 				$.post("././ajax?" + Math.random(), { rnum:"11"}, function (data){
+ 					
+ 	               $("#tbaddress").html(data.msg10);
+ 	            });
+ 				
+ 			});
+			
+			
+			
 			//给立即下单的按钮绑定一个点击事件
 		$("#btngotoorder").click(function(e){
 				//要去判断这三个文本框里面是否输入了内容  判断的标准：去获取每个文本框里面的值，看这个值的长度是否大于0，如果大于0，就表示输入了内容
@@ -118,7 +134,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 					return false;
 				}
 				
-				if(!$("#tbaddress").val().length>0)//判断长度是否大于0，取反之后就数不大于0，即：没有输入内容。
+				if(!$("#tbaddress select").val().length>0)//判断长度是否大于0，取反之后就数不大于0，即：没有输入内容。
 				{
 					alert("请输入加工产品!");
 					$("#tbaddress").focus();//让一个表单元素获得焦点 
@@ -141,7 +157,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				    timeout:5000, //请求超时的时间，以毫秒计
 				    data:{
 				    	tbname:$("#tbname").val(),
-				    	tbaddress:$("#tbaddress").val(),
+				    	tbaddress:$("#tbaddress  select").val(),
 				    	tbtel:$("#tbTel").val()
 				     
 				    },
@@ -258,8 +274,8 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 			});
 			
 			
-			
-			
+
+ 			
 			function jisuan()
 			{
 				

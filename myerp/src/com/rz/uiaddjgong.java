@@ -48,9 +48,22 @@ public class uiaddjgong extends HttpServlet {
 		String tbaddress=request.getParameter("tbaddress");
 		String tbtel=request.getParameter("tbtel");
         String sessionid=request.getSession().getId();
+        DBHelper db=new DBHelper();
+        
+        //添加进产品表
+    	String strSql3="update tbcanpproduct set procount=procount+? where proname=?";
+    	List<Object> paramsitems3 = new ArrayList<Object>();
+    	paramsitems3.add(tbtel);	    	
+    	paramsitems3.add(tbaddress);
+
+    	db.excuteSql(strSql3, paramsitems3);
+        
+        
+        
+        
 	    
 	    String strSqlcarpros="select * from tbjgongcar where sessionid=? ";
-	    DBHelper db=new DBHelper();
+	    
 	    List<Object> params = new ArrayList<Object>();
 	    params.add(sessionid);
 	    List<Map<String,Object>> carprolist=null;

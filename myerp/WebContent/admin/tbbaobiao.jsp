@@ -57,6 +57,7 @@
         myChart.setOption(option);
 
         function getajaxdata(objyear) {
+        	 myChart.showLoading();
             $.ajax({
                 type: "post",
                 url: "../ajax",
@@ -66,11 +67,12 @@
                 async: true,//默认设置为true，所有请求均为异步请求
                 //cache：true,//默认为true（当dataType为script时，默认为false）设置为false将不会从浏览器缓存中加载请求信息。
                 success: function (data) {
+                	
                 	myChart.hideLoading();
                 	var optionhasvalue = {
                 		    title: {
                 		        text: '2020热销商品占比报表',
-                		        subtext: '制作：张三',
+                		        subtext: '制作：炘',
                 		        left: 'center'
                 		    },
                 		    tooltip: {
@@ -107,9 +109,9 @@
             });
 
         }
-
+       
         getajaxdata(2020);
-        myChart.showLoading();
+        
         $("#yearselect").change(function () {
             var v = $(this).val();
             getajaxdata(v);

@@ -19,18 +19,18 @@ String pagestr = (String)request.getAttribute("pagestr");
 
 <table border="0" cellspacing="0" cellpadding="0" class="tb tblist">
        <tr>
-       	 <td style="width:50px;">ID</td><!-- <td style="width:150px;">产品图片</td> --><!-- <td style="width:150px;">类别</td><td style="width:150px;">编号</td> --><!-- <td style="width:150px;">二维码</td> --><td>产品名称</td><!-- <td style="width:80px;">价格</td> --><td style="width:120px;">数量</td>
+       	 <td style="width:50px;">ID</td> <td style="width:150px;">产品图片</td>  <td style="width:150px;">类别</td><td style="width:150px;">编号</td> <td style="width:150px;">二维码</td> <td>产品名称</td> <!-- <td style="width:80px;">价格</td> --> <td style="width:120px;">数量</td>
        </tr>
      <%for (Map<String, Object> m : list) { %>
         <tr>
        		<td><%=m.get("id")%></td>
-       		<%-- <td><img src="./upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0px;"></td>
+       		 <td><img src="./upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0px;"></td>
        		<td data-typeid="<%=m.get("typeid")%>" class="typename" title="<%=m.get("fullpath")%>"><%=m.get("typename")%></td>
        		<td><%=m.get("pronum")%></td>
        		<td><img src="./twocode/<%=m.get("procodeurl")%>" style="width:38px;height:38px;padding:5px 0px;"></td>
-       		 --%><td><%=m.get("proname")%></td>       		
+       		 <td><%=m.get("proname")%></td>       		
        		<%-- <td><%=m.get("zprice")%></td> --%>
-       		<td><%=m.get("sumprocount")%></td>
+       		<td><%=m.get("procount")%></td>
        </tr>
     	<% } %> 
     </table>

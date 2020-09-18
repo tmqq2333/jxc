@@ -19,7 +19,7 @@ String pagestr = (String)request.getAttribute("pagestr");
 
 <table border="0" cellspacing="0" cellpadding="0" class="tb tblist">
        <tr>
-       	 <td style="width:50px;">ID</td><td style="width:150px;">产品图片</td><td style="width:150px;">商品名称</td><td style="width:150px;">类别</td><td style="width:150px;">编号</td><td style="width:50px;">出入标记</td><td style="width:150px;">商品基数</td><td style="width:150px;">入库数量</td><td style="width:50px;">单位</td><td style="width:120px;">时间</td>   
+       	 <td style="width:50px;">ID</td><td style="width:150px;">产品图片</td><td style="width:150px;">商品名称</td><td style="width:150px;">类别</td><td style="width:150px;">编号</td><td style="width:50px;">出入标记</td><td style="width:150px;">商品基数</td><td style="width:150px;">出库数量</td><td style="width:80px;">售价</td><td style="width:80px;">总金额</td><!-- <td style="width:50px;">单位</td> --><td style="width:120px;">时间</td>   
        </tr>
        <%for (Map<String, Object> m : list) { %>
         <tr>
@@ -31,8 +31,9 @@ String pagestr = (String)request.getAttribute("pagestr");
        		<td title="<%=m.get("opttype")%>"><%=m.get("opttype").equals(1)?"入库":"出库"%></td>
        		<td><%=m.get("prooldnum")%></td>
        		<td><%=m.get("proaddnum")%></td>      
-       		
-       		<td><%=m.get("unitname")%></td>      
+       		<td><%=m.get("price")%></td>
+       		<td><%=m.get("zprice")%></td> 
+       		<%-- <td><%=m.get("unitname")%></td>    --%>   
        		<td><%=m.get("ctime")%></td>
        </tr>
     	<% } %>

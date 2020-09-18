@@ -20,6 +20,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				width:60px;
 				height: 30px;
 				border: solid 1px #ccc;
+				position: relative;
 			}
 			
 			 .pronumber span{
@@ -31,7 +32,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 				color: #757575;
 				float: left;
 				cursor: pointer;/* 鼠标指针 */
-				background-color:#eee;
+				/* background-color:#eee; */
 			} 
 			
 			 .pronumber input{
@@ -71,7 +72,7 @@ Map<String, Object> obj=(Map<String,Object>)request.getSession().getAttribute("c
 		<table border="0" cellspacing="0" cellpadding="0" class="tb tblist" id="cartable">
 			<tr><td style="width: 150px;height: 30px;">商品图片</td><td>商品名称</td><td style="width:100px;">单价</td><td style="width:100px;">数量</td><td style="width: 100px;">小计</td><td style="width:50px;">操作</td></tr>
 			<%for (Map<String, Object> m : carlistall) { %>
-			<tr class="proidd" data-proid="<%=m.get("proid")%>"><td><img src="upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0; "></td><td><%=m.get("proname")%></td><td ><span><input type="text" class="proprice" style="width:46px;height:30px;margin:auto,0; " value="<%=m.get("price")%>"/>元</span></td><td><div class="pronumber"><input type="text" class="procount"  value="<%=m.get("procount")%>"/>吨 </div>  </td><td><span></span>元</td><td><span class="del">删除</span></td></tr>
+			<tr class="proidd" data-proid="<%=m.get("proid")%>"><td><img src="upload/<%=m.get("imgurl")%>" style="width:120px;height:38px;padding:5px 0; "></td><td><%=m.get("proname")%></td><td ><span><input type="text" class="proprice" style="width:46px;height:30px;margin:auto,0;	text-align: center; " value="<%=m.get("price")%>"/>元</span></td><td><div class="pronumber"><input type="text" class="procount"  value="<%=m.get("procount")%>"/><span style="	position: absolute;right:-20px;top:15px;">吨</span> </div>  </td><td><span></span>元</td><td><span class="del">删除</span></td></tr>
 			<%}%>
 		</table>
 		
