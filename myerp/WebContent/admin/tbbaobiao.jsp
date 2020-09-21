@@ -71,7 +71,7 @@
                 	myChart.hideLoading();
                 	var optionhasvalue = {
                 		    title: {
-                		        text: '2020热销商品占比报表',
+                		        text: '2020出库占比报表',
                 		        subtext: '制作：炘',
                 		        left: 'center'
                 		    },

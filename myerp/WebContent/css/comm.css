@@ -7,6 +7,7 @@
 a{
 	text-decoration: none;
 	color: #333;
+	
 }
 
 ul{
@@ -94,8 +95,9 @@ textarea{
 }
 
 .tblist tr:hover{
-	background-color:#457d61!important;
+	background-color:#F5DEB3!important;
 	color: white;
+	
 }
 .tblist tr:nth-child(2n+1){
 	background-color: #eee;

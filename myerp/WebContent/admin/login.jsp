@@ -11,17 +11,18 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>重庆工商大学融智学院实训项目-进销存管理系统V1.0</title>
+	<title>朗润建材进销存管理系统V1.0</title>
 	<link rel="stylesheet" type="text/css" href="../css/comm.css" />
 	<style type="text/css">
+		
 		body {
-				background-color: #2f2f35;
+				background-color: #FAEBD7;
 				font-family: 'Microsoft YaHei';
 				font-size: 14px;
 				background-repeat: no-repeat;
 				background-position: 0 0;
+				background-image: url(../img/login.png);
 			}
-						
 			#logincontainer {
 				width: 662px;
 				height: 332px;
@@ -31,8 +32,10 @@
 				border: 0;
 				border-radius: 3px;
 				color: back;
-				background-color:#535356;
-				border: solid 6px #c0eaeefa;
+				background-color: rgba(255,250,250,0.9);
+			 	/*background-color:#FFFAFA;*/
+				border: solid 6px #D2B48C;
+				/* opacity:0.8; */
 				/* background-image: url(../img/loginbg.png); */
 			}
 			
@@ -41,7 +44,7 @@
 				height: 46px;
 				line-height: 46px;
 				clear: both;
-				color:#f0f9ff ;
+				color:#CD853F ;
 			}
 			
 			#logincontainer p span {
@@ -57,7 +60,7 @@
 			
 			#logincontainer p span input {
 				height: 28px;
-				border: solid 1px #ff6600;
+				border: solid 1px #D2B48C;
 				padding-left: 5px;
 				margin-left: 5px;
 				background-color: white;
@@ -72,7 +75,7 @@
 				border: 0;
 				margin-top:30px;
 				border-radius: 5px;
-				background-color: #919ab4;
+				background-color: #D2B48C;
 				color: white;
 			}
 			

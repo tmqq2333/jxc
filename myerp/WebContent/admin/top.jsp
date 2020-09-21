@@ -15,10 +15,11 @@ List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute
 		<link rel="stylesheet" type="text/css" href="css/comm.css" />
 
 		<style type="text/css">
+			
 			.linear {
 				width: 100%;
 				height: 100px;
-				background-color: #272727;
+				background-color: #FAEBD7;
 			}
 			
 			.nav {
@@ -33,7 +34,7 @@ List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute
 				float: left;
 				height: 30px;
 				position: relative;
-				background-color: #151c42;
+				background-color: #DEB887;
 				margin-right: 3px;
 				margin-top: 2px;
 				border-top-left-radius: 0px;
@@ -41,25 +42,25 @@ List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute
 				/* background-image: url(./img/aixin.png); */
 				background-repeat: no-repeat;
 				background-position: 1px 6px;
-				border: solid 4px #c0eaeefa;
+				border: solid 4px #F5DEB3;
 				
 			}
 			.nav li:hover{
-			background-color: #151c42;
+			background-color: #F5DEB3;
 			
 			font-size:20px;
-			border: solid 5px #c779f9fa;
+			border: solid 5px #BC8F8F;
 			
 			}
 			.nav li a:hover{
-			color:#dccef1fa;
+			color:#CD5C5C;
 			}
 			
 			.nav li a {
 				text-decoration: none;
 				padding: 0 20px;
 				line-height: 30px;
-				color: #c0eaeefa;
+				color: #8B4513;
 				display: block;
 			}
 			
@@ -75,7 +76,7 @@ List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute
 				padding-top: 10px;
 				color: white;
 				border-radius: 5px;
-				background-color:#535356;
+				background-color:#DEB887;
 				border-bottom-right-radius: 0;
 				border-top-right-radius: 0;
 				box-shadow: 0 0 10px 1px #fff;
@@ -100,6 +101,7 @@ List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute
                 right:0px;
                 top:1px;
             }
+		
 		</style>
 
 	</head>
@@ -107,7 +109,7 @@ List<Map<String, Object>> list = (List<Map<String, Object>>)request.getAttribute
 	<body>
 		
 			<div class="linear">
-				<img src="./img/logo112.png" style="height:100px;" />
+				<img src="./img/logo0.png" style="height:100px;" />
 				<div class="timeanduser">
 					<p id="timecontainer"></p>
 					<p id="currentuser">当前用户: 【<%= ((Map<String,Object>)session.getAttribute("currentuser")).get("truename")%>】<a href="logout" target="_top" id="logout" title="退出系统"><img src="./img/logout5.png"></a> </p>
